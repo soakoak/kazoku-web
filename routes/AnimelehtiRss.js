@@ -2,6 +2,7 @@ var FeedParser = require('feedparser');
 var request = require('request');
 var fs = require('fs');
 var path = require('path');
+var Promise = require('bluebird');
 
 var RssSources = require('./RssSources');
 
@@ -51,25 +52,31 @@ module.exports = function () {
          var imagePath = imagePath(Uutinen.imageName);
 
          function imagePath(imageName) {
-            return path.join(__dirname, '..', 'public', 'images', 'animelehti', imageName + ".jpg");
+            return path.join(__dirname, '..', 'public', 'images', 'uutiskuvat', imageName + ".jpg");
          }
     
          fs.exists(imagePath, function (exists) {
             if (!exists) {
                var requestUri = 'http://animelehti.fi/wordpress/wp-content/resized/posticons/' + 
                      Uutinen.imageName +'_668x170.jpg';
-               downloadImage( requestUri, imagePath);
+               downloadImage( requestUri, imagePath).then(function (path) {
+                  console.log("Downloaded image " + path);
+               });
             }
          });
 
          function downloadImage(requestUri, imagePath) {
-            var imageStream = request(requestUri);
-            var writeStream = fs.createWriteStream(imagePath);
-            writeStream.on('error', function(err) {
-               console.log(err);
+            return new Promise(function (resolve, reject) {
+
+               var imageStream = request(requestUri);
+               var writeStream = fs.createWriteStream(imagePath);
+               writeStream.on('error', function(err) {
+                  console.log(err);
+               });
+               imageStream.pipe(writeStream);
+
+               resolve(imagePath);
             });
-            imageStream.pipe(writeStream);
-            console.log("Downloaded image " + imagePath);
          }
       }
    });

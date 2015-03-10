@@ -1,7 +1,7 @@
 mixin news_window(link, imageName, title, pubDate, summary)
   .ruutu
     a(href=link)
-      .kuva(style="background: url(/images/" + imageName + ".jpg); background-position: center center; background-size: cover;")
+      .kuva(style="background: url(/images/uutiskuvat/" + imageName + ".jpg); background-position: center center; background-size: cover;")
     .description
       h1= title
       strong=pubDate
