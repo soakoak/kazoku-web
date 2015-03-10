@@ -27,7 +27,7 @@ build/Release
 node_modules
 
 # Animelehti images
-public/images/animelehti
+public/images/uutiskuvat
 
 # raw images
 public/images/raw
