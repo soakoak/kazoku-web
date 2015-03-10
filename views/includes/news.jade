@@ -1,0 +1,14 @@
+mixin news_window(link, imageName, title, pubDate, summary)
+  .ruutu
+    a(href=link)
+      .kuva(style="background: url(/images/" + imageName + ".jpg); background-position: center center; background-size: cover;")
+    .description
+      h1= title
+      strong=pubDate
+      p=summary
+    .luelisaa
+      a(href=link) Lue osoitteessa animelehti.fi
+
+each n in news
+  +news_window(n.link, n.imageName, n.title, 
+      DateFormat.format(n.pubDate), n.summary)

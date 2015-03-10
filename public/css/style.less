@@ -1,0 +1,307 @@
+@taustavari:		#eb8f4b;
+@vaaleataustavari:	#F4F4F4;
+@huomiovari:		#bf6d5b;
+@reunavari:			#bf6d5b;
+@linkkivari:		#6c0e20;
+@hoverlinkkivari:	#e87566;
+@taustakuva: "/images/bg.png";
+@containerWidth: 960px;
+@contentWidth: 750px / @containerWidth * 100%;
+
+#header, #navbar, #content, #sidebar, #footer {
+
+	a:link, a:visited {
+		color: @linkkivari;
+	}
+
+	a:hover {
+		color: @hoverlinkkivari;
+	}
+}
+
+body {
+	background: url(@taustakuva) repeat-x;
+}
+
+main {
+	max-width: @containerWidth + 20px;
+	margin: 0 auto; 
+	background: #FFF;
+	padding: 0 10px;
+}
+
+header {
+	height: 150px; 
+	background-color: @taustavari;
+
+	.mascot-wrapper {
+		position: relative; 
+		top: 6px;
+		left: 15px; 
+		width: 201.6px / @containerWidth * 100%;
+		display: inline-block;
+	
+		#maskotti {
+			max-width: 100%;
+
+		}
+		&.suuri {
+			width: 245.28px / @containerWidth * 100%;
+		}
+	}
+
+	.logo-wrapper {
+		float: right; 
+		position: relative; 
+		top: 12px;
+		right: 85px; 
+		width: 520px; 
+
+		#logo {
+			max-width: 100%;
+		}
+	}
+}
+
+#navbar {
+	padding-left: 300px; 
+	padding-right: 50px; 
+	margin-bottom: 0px; 
+	background: #FFF;
+	height: 48px;
+	@linkWidth: 22%;
+
+	a:link {
+		float:left;
+		width: @linkWidth;
+
+		text-align: center; 
+		margin-top: 10px; 
+		margin-bottom: 10px;
+		font-size: 16px;
+	}
+
+	a.twittericon {
+		width: 100%-@linkWidth*4;
+
+		i {
+			font-size: 26px;	
+		}
+	}
+}
+
+#carouselcont {
+	background-color: @vaaleataustavari;
+	height: 250px;
+	margin-bottom: 50px; 
+
+	.carousel {
+		width: 610px; 
+		background: #555; 
+		right: 50px; 
+		overflow: hidden;
+		float: right;	
+
+		img {
+			margin: auto; 
+			min-width: 100%; 
+			min-height: 100%;
+		}
+
+		.carousel-caption {
+			top: 80px;
+			text-shadow: #000 0px 0px 1px, #000 0px 0px 1px;
+         -webkit-font-smoothing: antialiased;
+		}
+
+		.carousel-control {
+			background-image: none;
+			z-index: 1;
+		}
+	}
+}
+
+
+#content {
+	background-color: #FFF;
+	width: @contentWidth;
+	display: inline-block;
+	position: relative;
+	z-index: 2;
+
+	p {
+		margin-top: 20px;
+	}
+
+	#frontpage {
+
+		.nav-tabs {
+			border-bottom: 1px solid @taustavari;
+			height: 43px;
+			
+			li {
+				margin: 0;
+				
+				a, a:hover, a:active, a:visited, a:focus {
+					border-radius: 0;
+				}
+				
+				a:hover {
+					border: 1px solid @taustavari;
+					border-bottom: none;
+					height: 43px;
+				}
+
+				&.active {
+
+					a, a:hover, a:active, a:visited, a:focus {
+						border: none;
+						background-color: @taustavari;
+						color: #FFF;
+						height: 42px;
+					}
+				}
+			}
+		}
+
+		.tab-content {
+
+			#uutiset {
+				padding-top: 5px;
+
+				.ruutu {
+					display: inline-block;
+					width: 240px; 
+					border: 1px solid @reunavari; 
+					height: 300px; 
+					overflow: hidden; 
+					margin: 0 10px 10px 0; 
+					position: relative;
+
+					.kuva {
+						height: 150px; 
+					}
+
+					.description {
+						padding: 4px 4px 0;
+
+						h1 {
+							font-size: 16px; 
+							margin: 0 0 2px;
+						}
+
+						p {
+							overflow: hidden;
+							height: 40px
+						}
+					}
+
+					.luelisaa {
+						width: 100%; 
+						position: absolute; 
+						bottom: 0; 
+						text-align: right; 
+						padding-right: 10px; 
+						border-top: 1px solid @reunavari;
+					}
+				}
+			}
+
+			#blogit {
+
+				p {
+					clear: both;
+
+					.blogicon {
+						width: 20px;
+						height: 20px;
+						border-radius: 10px;
+						float: left;
+						margin-right: 10px;
+					}
+
+					.blogmsg-info {
+						margin-left: 30px;
+					}
+				}
+			}
+
+			#tapahtumat {
+			}
+
+			#cast	#accordion {
+
+				.panel-default {
+					border: 1px solid @reunavari;
+					border-radius: 0;
+
+					.panel-heading{
+						background: none @reunavari;
+						border-radius: 0;
+
+						h4 a {
+							color: #FFF;
+						}
+					}
+
+					audio {
+						width: 100%; 
+						visibility: visible !important;
+					}
+				}
+				
+				* {
+					border: none;
+				}
+			}
+		}
+	}
+
+	#project #maskotti {
+		float: left;
+	}
+
+	#links li > a {
+		margin-left: 10px;
+	}
+}
+
+#sidebar {
+	@sidebarWidth: 100% - @contentWidth;
+	width: @sidebarWidth * 0.95; 
+	float: right;
+	margin-left: @sidebarWidth * 0.05;
+
+	.isoloota {
+		width: 100%; 
+		padding: 20px 0;
+		font-size: 20pt; 
+		background-color: @taustavari; 
+		text-align: center; 
+		margin-bottom: 10px;
+
+		a {
+			color: white;
+		}
+
+		&:hover {
+			background-color: @huomiovari;
+		}
+	}
+
+	#credits {
+		margin-top: 40px;
+	}
+}
+
+
+#footer {
+	width: 100%; 
+	position: absolute; 
+	bottom: 0; 
+
+	div {
+		width: 960px; 
+		margin: auto; 
+	}
+}

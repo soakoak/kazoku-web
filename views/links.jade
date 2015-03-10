@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  #links
+    p.
+      Joitain tärkeimpiä sivustoja animeharrastuksen tueksi:
+    ul
+      mixin link(uri, title, description)
+        li
+          a(href= uri)
+            strong= title
+          = description
+
+      +link("http://animenewsnetwork.com", "Anime News Network", 
+        "Aktiivinen yhdysvaltalainen uutissivusto ja ehkä kattavin englanninkielinen tietokanta teoksista")
+      +link("http://myanimelist.net", "MyAnimeList",
+        "Näppärä työkalu omien katsomisten seuraamiseen. Kattava tietokanta")
+      +link("http://anilist.co", "AniList",
+        "Vaihtoehtoinen palvelu katsottujen sarjojen listaamiseen")
+      +link("http://anichart.net", "AniChart",
+        "Tulevat sarjat listattuna kausittain")
+      +link("http://crunchyroll.com", "Crunchyroll",
+        "Laaja valikoima animea suoratoistona laillisesti")
+      +link("http://animelehti.fi", "Anime-lehti",
+        "Animeuutisia suomeksi")
+      +link("http://tokio.fi", "Tokio.fi",
+        "Kattava tietokanta suomalaisista julkaisuista ja ilmestymispäivistä")
+    p.
+      Muun muassa uutisia, tapahtumia ja muuta keskustelua seurataksesi suosittelemme Twitter-yhteisöpalvelua, 
+      josta Kazoku löytyy käyttäjänimellä kazoku_fi.

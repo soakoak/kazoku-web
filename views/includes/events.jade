@@ -1,0 +1,20 @@
+mixin event(title, where, detailedWhere, description, officialPage)
+  h2= title
+  strong= where
+  br
+  strong Kazoku-miitti: 
+  = detailedWhere
+  if description
+    p= description
+  else
+    br
+  a(href=officialPage) Virallinen sivusto
+
++event("Desucon Frostbite", "13.-15.2.2015", 
+  "Tarkempi ajankohta selviää lähempänä tapahtumaa", 
+  false, "https://desucon.fi/frostbite2015/")
+h1 Menneet tapahtumat ja miitit
++event("Tracon", "13.–14.9.2014, Tampere-talo, Tampere", 
+  "Lauantaina 16.00-16.45 Puisto, pieni miittiteltta", 
+  "Kazokun miitti tällä kertaa roolipeli- ja animeaiheisessa Traconissa. Liity seuraamme miittiteltassa, josta miitti siirtyy ajan loppuessa säästä riippuen muualle puistoon tai sisätiloihin.",
+  "http://2014.tracon.fi/")

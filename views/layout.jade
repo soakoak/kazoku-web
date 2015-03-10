@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53996173-1', 'auto');
+      ga('send', 'pageview');
+
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title= title
+
+    // JQuery
+    script(type="text/javascript", src="http://code.jquery.com/jquery-latest.min.js")
+    
+    // Bootstrap
+    - var maxcdn = "http://maxcdn.bootstrapcdn.com";
+    //-
+      link(rel="stylesheet", href= maxcdn + "/bootstrap/3.2.0/css/bootstrap.min.css")
+      link(rel="stylesheet", href= maxcdn + "/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+      script(src= maxcdn + "/bootstrap/3.2.0/js/bootstrap.min.js")
+    link(rel="stylesheet", href = maxcdn + "/font-awesome/4.1.0/css/font-awesome.min.css")
+
+    meta(name="msapplication-TileColor", content="#603cba")
+    meta(name="msapplication-TileImage", content="/icons/mstile-144x144.png")
+    
+    mixin apple_favicon(width)
+      - var size = width + "x" + width;
+      - var uri = "/icons/apple-touch-icon-" + size + ".png";
+      link(rel="apple-touch-icon", sizes = size, href = uri)
+    - var apple_favicon_sizes = [57, 114, 72, 144, 60, 120, 76, 152];
+    each val in apple_favicon_sizes
+      +apple_favicon(val)
+
+    mixin favicon(width)
+      - var size = width + "x" + width;
+      - var uri = "/icons/favicon-" + size + ".png";
+      link(rel="icon", type="image/png" sizes = size, href = uri)
+    - var favicon_sizes = [196, 160, 96, 16, 32]
+    each val in favicon_sizes
+      +favicon(val)
+
+    //- script(type= "text/javascript", src="/js/less.js")
+    link(rel= "stylesheet", type = "text/css", href="/css/bootstrap.min.css")
+    link(rel= "stylesheet", type = "text/css", href="/css/bootstrap-theme.min.css")
+    link(rel= "stylesheet", type = "text/css", href="/css/style.css")
+    script(type="text/javascript", src="/js/bootstrap.min.js")
+
+  body
+    main
+      block header
+        header
+          .mascot-wrapper(class={suuri: big_kazokun})
+            img(src="/images/kazokun-crop.png", id="maskotti")
+          .logo-wrapper
+            a(href="/")
+              img(src="/images/logo_vaalea.png", id="logo")
+      block nav
+        nav(id="navbar")
+          a(href="/") Etusivu
+          a(href="/projekti/") Kazoku-projektista
+          a(href="/linkit/") Linkit
+          a(href="/yhteys/") Ota yhteyttä
+          a(href="https://twitter.com/kazoku_fi", class="twittericon")
+            i(class="fa fa-twitter")
+      block content-pre
+      #content
+        block content
+      
+      #sidebar
+        block sidebar
+          mixin sidebar_link(uri, title)
+            .isoloota
+              a(href=uri): = title
+          +sidebar_link("http://keskustelu.kazoku.me", "Foorumi")
+          +sidebar_link("/irc", "IRC")
+
+          #credits
+            | Uutiset tarjoaa: 
+            a(href="http://tokio.fi") Tokio.fi, 
+            a(href="http://animelehti.fi") Anime-lehti

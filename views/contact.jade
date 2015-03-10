@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  table.table
+    mixin admin_row(area, twitter_id, email)
+      - var twitter_uri = "https://twitter.com/";
+      tr
+        th= area
+        td: a(href=twitter_uri + twitter_id): ="@" + twitter_id
+        td= email
+    +admin_row("Yleiset asiat", "Kazoku_fi", "kazoku.staff@gmail.com")
+    +admin_row("Keskustelualue", "mika_si")
+    +admin_row("Sivusto", "ToriSohva")
+    +admin_row("KazokuCast", "Tursake")
+
+  h1 Keskustelualueiden ja IRC-kanavan valvojat
+
+  table.table
+    thead: tr
+      th Foorumilla
+      th Nimimerkki IRC:ssä (QuakeNet)
+      th Twitter
+    tbody
+      mixin staff_row(forum_nick, chat_nick, twitter_id)
+        - var twitter_uri = "https://twitter.com/";
+        tr
+          td= forum_nick
+          td= chat_nick
+          td: a(href=twitter_uri + twitter_id): ="@" + twitter_id
+      +staff_row("6reen", "_6reen", "6reenroom")
+      +staff_row("", "Coldi", "ColdiFIN")
+      +staff_row("Hachiroku", "Hachiroku", "Hachiroku_")
+      +staff_row("", "kusochi", "_kusochi")
+      +staff_row("小山舞★エロマンガ先生", "MAI", "koyama_mai")
+      +staff_row("Mika", "Mika9", "mika_si")
+      +staff_row("ToriSohva", "ToriSohva, TorviSaha", "ToriSohva")
+      +staff_row("Tounis", "Tounis", "Touniss")
+      +staff_row("Tursake", "Tursake_", "Tursake")
