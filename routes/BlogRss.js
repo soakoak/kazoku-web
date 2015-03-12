@@ -1,7 +1,7 @@
 var FeedParser = require('feedparser');
-var request = require('request');
 var fs = require('fs');
 var path = require('path');
+var request = require('request');
 
 var BlogMsg = require(path.join(__dirname, '..', 'models')).BlogMsg;
 
@@ -44,12 +44,18 @@ module.exports = function (blog) {
 }
 
 function requestRss (rssUri, feedparser) {
+
    var stream = request.get(rssUri);
-   stream.on('error', function (err) {
+   stream.on('error', handleError);
+
+   stream.on('response', function (res) {
+      res.pipe(feedparser);
+   })
+
+   function handleError(err) {
       console.log(err, err.stack);
       return process.exit(1);
-   });
-   stream.pipe(feedparser);
+   }
 }
 
 module.exports.result = results;
