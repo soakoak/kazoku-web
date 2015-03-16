@@ -15,7 +15,7 @@ var router = express.Router();
 var news = new Array();
 var casts = new Array();
 var blogMsgs = new Array();
-var BLOG_MSG_MAX = 30;
+var BLOG_MSG_MAX = 5;
 
 function updateNews (logMsg) {
    var join = Promise.join;
@@ -53,13 +53,7 @@ function dateCompare(dateA, dateB) {
 
 function updateBlogs() {
 
-   var blogFindOptions = {
-         where: { 
-            id: { $between: [11, 11] } 
-         } 
-   };
-
-   models.Blog.findAll(blogFindOptions).each(function (blog) {
+   models.Blog.findAll().each(function (blog) {
 
       function getBlogLastUpdated(blogId) {
          return new Promise(function (resolve, reject) {
@@ -71,7 +65,13 @@ function updateBlogs() {
             };
 
             models.BlogMsg.findAll(options).then(function (msgs) {
-               resolve(msgs[0].pubDate);
+               var lastUpdate;
+               if( msgs.length == 0) {
+                  lastUpdate = new Date(0);
+               } else {
+                  lastUpdate = msgs[0].pubDate;
+               }
+               resolve(lastUpdate);
             });
          });
       }
@@ -87,10 +87,7 @@ function updateBlogs() {
          });
       }
 
-      function saveBlogMessage(message) {
-      }
-
-      getNewEntries(blog).each(function(message) { 
+      getNewEntries(blog).each(function (message) { 
          message.save();
       }).then(function (messages) {
          console.log("Saved " + messages.length 
@@ -158,15 +155,11 @@ router.get('/', function(req, res) {
    res.render('index', 
       {
          title: 'Kazoku', 
-         big_kazokun: true,
-         templateRender: jade.renderFile,
          news: news,
-         casts: casts,
          blogMsgs: blogMsgs,
          DateFormat: new Intl.DateTimeFormat('fi-FI'),
-         DateTimeFormat: new Intl.DateTimeFormat('fi-Fi',
+         TimeFormat: new Intl.DateTimeFormat('fi-Fi',
             {
-               year: 'numeric', month: 'numeric', day: 'numeric',
                hour: 'numeric', minute: 'numeric'
             })
       });
