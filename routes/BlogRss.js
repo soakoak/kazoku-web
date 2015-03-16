@@ -5,21 +5,22 @@ var request = require('request');
 
 var BlogMsg = require(path.join(__dirname, '..', 'models')).BlogMsg;
 
-var results = new Array();
+var lastResults = new Array();
 
 module.exports = function (blog) {
 
    var rssOsoite = blog.rss;
    var feedparser = new FeedParser();
+   var results = new Array();
 
    this.makeRequest = function (callback) {
-      results.length = 0;
 
-      if(callback) {
-         feedparser.on('end', function() {
+      feedparser.on('end', function() {
+         if(callback) {
             callback(null, results);
-         });
-      }
+         }
+         lastResults = results;
+      });
       
       requestRss(rssOsoite, feedparser);
    }
@@ -58,4 +59,4 @@ function requestRss (rssUri, feedparser) {
    }
 }
 
-module.exports.result = results;
+module.exports.lastResults = lastResults;
