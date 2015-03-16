@@ -51,35 +51,39 @@ html
     script(type="text/javascript", src="/js/bootstrap.min.js")
 
   body
-    main
-      block header
-        header
-          .mascot-wrapper(class={suuri: big_kazokun})
-            img(src="/images/kazokun-crop.png", id="maskotti")
-          .logo-wrapper
-            a(href="/")
-              img(src="/images/logo_vaalea.png", id="logo")
-      block nav
-        nav(id="navbar")
-          a(href="/") Etusivu
-          a(href="/projekti/") Kazoku-projektista
-          a(href="/linkit/") Linkit
-          a(href="/yhteys/") Ota yhteyttä
-          a(href="https://twitter.com/kazoku_fi", class="twittericon")
-            i(class="fa fa-twitter")
-      block content-pre
-      #content
-        block content
-      
-      #sidebar
-        block sidebar
-          mixin sidebar_link(uri, title)
-            .isoloota
-              a(href=uri): = title
-          +sidebar_link("http://keskustelu.kazoku.me", "Foorumi")
-          +sidebar_link("/irc", "IRC")
+    .container
+      div.row
+        block nav
+          nav.col-md-3
+            .mascot-wrapper
+              img(src="/images/kazokun3-crop.png", id="maskotti")
+            | valikkojutut
+          div.col-md-9
+            block header
+              header
+                .logo-wrapper
+                  a(href="/")
+                    img(src="/images/uusilogo.png", id="logo")
+              //-
+                a(href="/") Etusivu
+                a(href="/projekti/") Kazoku-projektista
+                a(href="/linkit/") Linkit
+                a(href="/yhteys/") Ota yhteyttä
+                a(href="https://twitter.com/kazoku_fi", class="twittericon")
+                  i(class="fa fa-twitter")
+        
+            main
+              block content
+          
+          //- #sidebar
+          //-   block sidebar
+          //-     mixin sidebar_link(uri, title)
+          //-       .isoloota
+          //-         a(href=uri): = title
+          //-     +sidebar_link("http://keskustelu.kazoku.me", "Foorumi")
+          //-     +sidebar_link("/irc", "IRC")
 
-          #credits
-            | Uutiset tarjoaa: 
-            a(href="http://tokio.fi") Tokio.fi, 
-            a(href="http://animelehti.fi") Anime-lehti
+          //-     #credits
+          //-       | Uutiset tarjoaa: 
+          //-       a(href="http://tokio.fi") Tokio.fi, 
+          //-       a(href="http://animelehti.fi") Anime-lehti

@@ -1,65 +1,71 @@
 extends layout
 
-block content-pre
-  section#carouselcont
-    #carousel(class="carousel slide", data-ride="carousel")
-      - var slide_count = 1
-
-      if slide_count > 1
-        // Indicators 
-        //- (pallot)
-        ol.carousel-indicators
-          mixin slide(count)
-            li(
-              data-target="#carousel", 
-              data-slide-to=count,
-              class=attributes.class
-            )
-          +slide(0)(class="active")
-          +slide(1)
-
-        // Controls
-        mixin carousel_control(direction)
-          - var a_classes = ['carousel-control', direction]
-          a(class=a_classes,
-            href="#carousel",
-            role="button",
-            data-slide=direction === 'left' ? 'prev' : 'next')
-            span(class="glyphicon glyphicon-chevron-" + direction)
-        +carousel_control("left")
-        +carousel_control("right")
-
-      // Wrapper for slides
-      .carousel-inner
-        mixin carousel_img(src, alt, title, text, active)
-          .item(class={ active: active })
-            img(src=src, alt=alt)
-            .carousel-caption
-              h3= title
-              p= text
-        +carousel_img(
-          "images/frosti-miitti610x250.png", "Kazo-kun vieraili Desucon Frostbitessa", "Kazo-kun vieraili Desucon Frostbitessa", 
-          "Kiitos miitissä ja pöydällämme käyneille. Nähdään viimeistään kesän Desuconissa!", true)
-        //-+carousel_img(
-          "images/tracon9.png", "Tracon 9", "Kiitos Tracon-miitissä käyneille",
-          "Seuraava miitti Frostissa, ajankohta ilmoitetaan myöhemmin")
-
 block content
-  #frontpage
-    ul(class="nav nav-tabs" role="tablist")
-      mixin nav_tab(link, title, active)
-        li(class={ active: active })
-          a(href= link, role="tab", data-toggle="tab"): =title
-      +nav_tab("#uutiset", "Uutiset", true)
-      +nav_tab("#blogit", "Blogit")
-      +nav_tab("#tapahtumat", "Tapahtumat & miitit")
-      +nav_tab("#cast", "KazokuCast")
+  #uutiset
 
-    .tab-content
-      mixin tab_panel(id, include, active)
-        .tab-pane(class={ active: active}, id=id)
-          != templateRender('views/includes/' + include + '.jade', locals)
-      +tab_panel("uutiset", "news", true)
-      +tab_panel("blogit", "blogs")
-      +tab_panel("tapahtumat", "events")
-      +tab_panel("cast", "casts")
+    mixin news_window(link, imageName, title, pubDate, summary)
+      .ruutu
+        a(href=link)
+          .kuva(style="background: url(/images/uutiskuvat/" + imageName + ".jpg); background-position: center center; background-size: cover;")
+        .description
+          strong= title
+          br
+          =summary
+          br
+          | Julkaistu 
+          =pubDate
+          br
+          a(href=link) Lue osoitteessa animelehti.fi
+
+    .row
+      each n in news
+        .col-md-4
+          +news_window(n.link, n.imageName, n.title, 
+            DateFormat.format(n.pubDate), n.summary)
+
+  .row
+    .col-md-8
+      #blogit
+
+        mixin blogMsg(blogUri, blogName, link, title, pubDate)
+          p.clear-both
+            strong
+              a(href= link) 
+                !=title
+            br
+            | Blogissa 
+            a(href=blogUri)
+              =blogName
+            =" " + DateFormat.format(pubDate) + " klo " + TimeFormat.format(pubDate)
+
+        for msg in blogMsgs
+          +blogMsg(msg.blog.uri, msg.blog.name, msg.link, 
+            msg.title, msg.pubDate)
+
+        footer
+          strong
+            a(href="/") Lisää blogeja
+
+
+    .col-md-4
+      #tapahtumat
+
+        mixin event(title, where, detailedWhere, description, officialPage)
+          h2= title
+          strong= where
+          br
+          strong Kazoku-miitti: 
+          = detailedWhere
+          if description
+            p= description
+          else
+            br
+          a(href=officialPage) Virallinen sivusto
+
+        h1 Seuraava miitti
+        +event("Desucon 2015", "5.-7.6.2015", 
+          "Tarkempi ajankohta selviää lähempänä tapahtumaa", 
+          false, "https://desucon.fi/frostbite2015/")
+
+        footer 
+          strong Ilmoittaudu
