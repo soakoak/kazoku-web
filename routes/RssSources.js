@@ -12,4 +12,4 @@ RssSources.ANIMELEHTI = RssSources.animelehti.id;
 RssSources.TOKIO_FI = RssSources.tokiofi.id;
 
 module.exports = RssSources;
-module.exports.MAX_NEWS = 9;
+module.exports.MAX_NEWS = 3;
