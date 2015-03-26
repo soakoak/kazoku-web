@@ -1,22 +1,36 @@
-@taustavari:		#FFF;
-@fillbgcolor: #eb8f4b;
-@filltextcolor: #FFF;
-// @vaaleataustavari:	#F4F4F4;
-// @huomiovari:		#bf6d5b;
+@import "../../node_modules/bootstrap/less/bootstrap.less";
+
+@body-bg: 				#FFF;
+@text-color:			#eb8f4b;
+@link-color: 			@text-color;
+@link-hover-color:	#e87566;
+
+@navbar-border-radius: 0;
+
+@nav-link-hover-bg: @body-bg;
+@nav-link-hover-border: 1px solid @text-color;
+@nav-link-hover-color: @link-hover-color;
+@nav-link-hover-padding: 9px 15px;
+// @link-hover-color: #e87566;
+
+@grid-gutter-width: 20px;
+
+@fillbgcolor: 		#eb8f4b;
+@filltextcolor: 	#FFF;
 @linkkivari:		#FFF;
-@hoverlinkkivari:	#000;
+@hoverlinkkivari:	#FFF;
 @taustakuva: "/images/bg.png";
-// @containerWidth: 960px;
-// @contentWidth: 750px / @containerWidth * 100%;
 
-#header, #navbar, #content, #sidebar, #footer, #uutiset, #blogit, #tapahtumat {
+.reverse() {
+	background-color: @text-color;
+	color: @body-bg;
 
-	a:link, a:visited {
-		color: @linkkivari;
-	}
+	a {
+		color: inherit;
 
-	a:hover {
-		color: @hoverlinkkivari;
+		&:hover, &:focus {
+			color: inherit;
+		}
 	}
 }
 
@@ -24,19 +38,45 @@ body {
 	background: url(@taustakuva) repeat-x;
 
 	.container {
-		background: @taustavari;
+		background: @body-bg;
 		padding: 0 10px;
 	}
 }
 
-nav #maskotti {
-	max-width: 100%;
+nav {
+	.mascot-wrapper {
+		.hidden-xs();
+		.hidden-sm();
+		margin: 10px 0 20px;
+
+		#maskotti {
+			max-width: 100%;
+		}
+	}
+
+	.navbar-collapse {
+		@media (min-width: @screen-md-min) {
+			padding: 0;
+		}
+	}
+
+	.nav > li {
+		.fill-in-textbox();
+
+		> a {
+			&:hover, &:focus {
+				padding: @nav-link-hover-padding;
+				color: @nav-link-hover-color;
+				border: @nav-link-hover-border;
+			}
+		}
+	}
 
 }
 
 header {
 	height: 230px; 
-	background-color: @taustavari;
+	background-color: @body-bg;
 
 	.logo-wrapper {
 		float: right; 
@@ -51,8 +91,7 @@ header {
 }
 
 .fill-in-textbox {
-	background-color: @fillbgcolor;
-	color: @filltextcolor;
+	.reverse();
 
 	.padding {
 		padding: 4px 6px 0;
@@ -61,8 +100,7 @@ header {
 	@bottomMargin: 5px;
 	margin-bottom: @bottomMargin;
 
-	@media (min-width: 768px) {
-	// @media (min-width: 992px) {
+	@media (min-width: @screen-sm-min) {
 		margin-bottom: 0px; 
 	}
 
@@ -70,7 +108,7 @@ header {
 		position: absolute;
 		bottom: @bottomMargin + 5px;
 
-		@media (min-width: 992px) {
+		@media (min-width: @screen-sm-min) {
 			bottom: 5px; 
 		}
 	}
@@ -100,7 +138,7 @@ header {
 
 			height: 110px;
 
-			@media (min-width: 768px) {
+			@media (min-width: @screen-sm-min) {
 			// @media (min-width: 992px) {
 				height: 150px; 
 			}
@@ -113,20 +151,25 @@ header {
 			}
 		}
 	}
+
+	.further {
+		text-align: right;
+		padding: 1px 10px 6px;
+	}
 }
 
 #blogit, #tapahtumat {
 
 	.fill-in-textbox();
 	.fill-in-textbox.padding();
-	height: 300px;
+	height: 350px;
 }
 
 #blogit {
 	.big-strong();
 
-	@media (max-width: 768px) {
-		height: 450px; 
+	@media (max-width: @screen-xs-max) {
+		height: 500px; 
 	}
 
 	p {

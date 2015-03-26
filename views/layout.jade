@@ -39,8 +39,8 @@ html
     each val in favicon_sizes
       +favicon(val)
 
-    link(rel= "stylesheet", type = "text/css", href="/css/bootstrap.min.css")
-    link(rel= "stylesheet", type = "text/css", href="/css/bootstrap-theme.min.css")
+    //- link(rel= "stylesheet", type = "text/css", href="/css/bootstrap.min.css")
+    //- link(rel= "stylesheet", type = "text/css", href="/css/bootstrap-theme.min.css")
     link(rel= "stylesheet", type = "text/css", href="/css/style.css")
     script(type="text/javascript", src="/js/bootstrap.min.js")
 
@@ -50,9 +50,33 @@ html
         block nav
           nav.col-md-3
             .mascot-wrapper
-              img(src="/images/kazokun3-crop.png", id="maskotti")
+              img(src="/images/kazokun3-crop.png", id="maskotti", alt="Kazo-kun")
 
-            | valikkojutut
+            .navbar.navbar-default
+
+              .navbar-header
+                button.navbar-toggle(type="button", data-toggle="collapse", data-target="#collapse-1")
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+
+              .collapse.navbar-collapse#collapse-1
+                ul.nav.nav-stacked
+                  mixin nav_item(link, title)
+                    li(role="presentation")
+                      a(href=link, class=attributes.class)= title
+
+                  +nav_item("#", "IRC")
+                  +nav_item("#", "Foorumi")
+                  +nav_item("#", "Kazoku-projektista")
+
+                  +nav_item("#", "Linkit")
+                  +nav_item("#", "Uutiset")
+                  +nav_item("#", "Blogit")
+                  +nav_item("#", "Tapahtumat & miitit")
+                  +nav_item("#", "Ota yhteyttä")
+
           div.col-md-9
             block header
               header

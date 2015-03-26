@@ -2,25 +2,31 @@ extends layout
 
 block content
   #uutiset.row
-    mixin news_window(link, imageName, title, pubDate, summary)
-      .col-xs-12.col-sm-4
-        .ruutu
-          a(href=link)
-            .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
-          .description
-            strong= title
-            br
-            =summary
-            br
-            | Julkaistu 
-            =pubDate
-            br
-            footer
-              a(href=link) Lue osoitteessa animelehti.fi
+    .col-xs-12
+      .row
+        mixin news_window(link, imageName, title, pubDate, summary)
+          .col-xs-12.col-sm-4
+            .ruutu
+              a(href=link)
+                .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
+              .description
+                strong= title
+                br
+                =summary
+                br
+                | Julkaistu 
+                =pubDate
+                br
+                footer
+                  a(href=link) Lue osoitteessa animelehti.fi
 
-    each n in news
-        +news_window(n.link, n.imageName, n.title, 
+        each n in news
+            +news_window(n.link, n.imageName, n.title, 
           DateFormat.format(n.pubDate), n.summary)
+
+      .row.further
+        .col-xs-12
+          a(href="#") Lisää uutisia
 
   .row
 
