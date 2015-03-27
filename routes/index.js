@@ -143,7 +143,7 @@ function updateCasts(logMsg) {
 }
 
 // Päivitystahti millisekunteina.
-var delay = 10 * 60 * 1000; 
+var delay = 60 * 60 * 1000; 
 updateNews();
 setInterval(updateNews, delay);
 updateBlogs();
