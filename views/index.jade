@@ -33,20 +33,22 @@ block content
     .col-xs-12.col-sm-8
       #blogit
 
-        mixin blogMsg(blogUri, blogName, link, title, pubDate)
-          p.clear-both
-            strong
-              a(href= link) 
-                !=title
-            br
-            | Blogissa 
-            a(href=blogUri)
-              =blogName
-            =" " + DateFormat.format(pubDate) + " klo " + TimeFormat.format(pubDate)
+        ul.list-group
 
-        for msg in blogMsgs
-          +blogMsg(msg.blog.uri, msg.blog.name, msg.link, 
-            msg.title, msg.pubDate)
+          mixin blogMsg(blogUri, blogName, link, title, pubDate)
+            li.list-group-item
+              strong
+                a(href= link) 
+                  !=title
+              br
+              | Blogissa 
+              a(href=blogUri)
+                =blogName
+              =" " + DateFormat.format(pubDate) + " klo " + TimeFormat.format(pubDate)
+
+          for msg in blogMsgs
+            +blogMsg(msg.blog.uri, msg.blog.name, msg.link, 
+              msg.title, msg.pubDate)
 
         footer
           strong
