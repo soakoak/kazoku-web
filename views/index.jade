@@ -5,7 +5,7 @@ block content
     .col-xs-12
       .row
         mixin news_window(link, imageName, title, pubDate, summary)
-          .col-xs-12.col-sm-4
+          .col-xs-12.col-sm-4.content-wrapper
             .ruutu
               a(href=link)
                 .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
@@ -30,7 +30,7 @@ block content
 
   .row
 
-    .col-xs-12.col-sm-8
+    .col-xs-12.col-sm-8.content-wrapper
       #blogit
 
         ul.list-group
@@ -55,7 +55,7 @@ block content
             a(href="/") Lisää blogeja
 
 
-    .col-xs-12.col-sm-4
+    .col-xs-12.col-sm-4.content-wrapper
       #tapahtumat
 
         mixin event(title, where, detailedWhere, description, officialPage)

@@ -94,6 +94,20 @@ header {
 	}
 }
 
+.content-wrapper {
+
+	@bottomMargin: 5px;
+	margin-bottom: @bottomMargin;
+
+	@media (min-width: @screen-sm-min) {
+			margin-bottom: 0px; 
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
 .fill-in-textbox {
 	.reverse();
 
@@ -101,25 +115,14 @@ header {
 		padding: 10px 15px;
 	}
 
-	@bottomMargin: 5px;
-	margin-bottom: @bottomMargin;
-
-	@media (min-width: @screen-sm-min) {
-		margin-bottom: 0px; 
-	}
-
 	li {
 		padding-left: 0;
 		padding-right: 0;
 	}
 
-	// footer {
-	// 	margin-top: 8px;
-
-	// 	@media (min-width: @screen-sm-min) {
-	// 		bottom: 5px; 
-	// 	}
-	// }
+	footer {
+		margin-top: 20px;
+	}
 }
 
 .big-strong {
@@ -128,12 +131,17 @@ header {
 	}
 }
 
+main {
+	margin-bottom: 20px;
+}
+
 #uutiset {
 	padding-top: 5px;
 	margin-bottom: 10px;
 
 	.ruutu {
 		.fill-in-textbox();
+
 
 		.kuva {
 			height: 150px; 
@@ -175,18 +183,6 @@ header {
 
 #blogit {
 	.big-strong();
-
-	// @media (max-width: @screen-xs-max) {
-	// 	height: 500px; 
-	// }
-
-	// p {
-	// 	clear: both;
-	// }
-
-	li {
-
-	}
 }
 
 #tapahtumat {
