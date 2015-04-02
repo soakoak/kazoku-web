@@ -10,6 +10,15 @@
 
 @border-radius-base: 0;
 
+@navbar-default-bg: @text-color;
+@navbar-default-border: darken(@body-bg, 4%);
+@navbar-default-toggle-hover-bg: darken(@body-bg, 6.5%);
+@navbar-default-toggle-border-bg: darken(@body-bg, 6.5%);
+@navbar-default-toggle-icon-bar-bg: darken(@body-bg, 50%);
+
+@navbar-link-padding: 15px;
+@navbar-link-hover-padding: 14px;
+
 @nav-link-hover-bg: @body-bg;
 @nav-link-hover-border: 1px solid @text-color;
 @nav-link-hover-color: @link-hover-color;
@@ -36,6 +45,16 @@
 	}
 }
 
+.big-hide {
+	.hidden-md();
+	.hidden-lg();
+}
+
+.small-hide {
+	.hidden-xs();
+	.hidden-sm();
+}
+
 body {
 	background: url(@taustakuva) repeat-x;
 
@@ -47,8 +66,8 @@ body {
 
 nav {
 	.mascot-wrapper {
-		.hidden-xs();
-		.hidden-sm();
+		.small-hide();
+
 		margin: 10px 0 20px;
 
 		#maskotti {
@@ -56,25 +75,54 @@ nav {
 		}
 	}
 
+	.navbar-header {
+
+		ul.nav {
+			margin: 0;
+			padding: 0 40px 0 0;
+
+			// http://stackoverflow.com/a/1767270/2039863
+			overflow: hidden;
+			width: auto;
+			text-align: center;
+
+			li {
+				width: 50%;
+				float: left;
+
+				> a {
+					padding: @navbar-link-padding;
+
+					&:hover, &:focus {
+						padding: @navbar-link-hover-padding;
+					}
+				}
+			}
+		}
+	}
+
 	.navbar-collapse {
 		@media (min-width: @screen-md-min) {
 			padding: 0;
 		}
+
+		background-color: @body-bg;
+	
 	}
 
-	.nav > li {
-		.reverse();
+		.nav > li {
+			.reverse();
 
-		> a {
-			&:hover, &:focus {
-				padding: @nav-link-hover-padding;
-				color: @nav-link-hover-color;
-				border: @nav-link-hover-border;
+			> a {
+				&:hover, &:focus {
+					padding: @nav-link-hover-padding;
+					color: @nav-link-hover-color;
+					border: @nav-link-hover-border;
+				}
+
+				.big-strong();
 			}
-
-			.big-strong();
 		}
-	}
 
 }
 

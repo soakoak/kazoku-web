@@ -60,19 +60,24 @@ html
                   span.icon-bar
                   span.icon-bar
                   span.icon-bar
+                ul.nav.visible-xs
+                  li
+                    a(href="") IRC
+                  li
+                    a(href="") Foorumi
 
               .collapse.navbar-collapse#collapse-1
                 ul.nav.nav-stacked
                   mixin nav_item(link, title, big)
-                    li(role="presentation")
-                      a(href=link, class=attributes.class)
+                    li(role="presentation", class=attributes.class)
+                      a(href=link)
                         if big
                           strong= title
                         else
                           = title
 
-                  +nav_item("#", "IRC", true)
-                  +nav_item("#", "Foorumi", true)
+                  +nav_item("#", "IRC", true)(class="small-hide")
+                  +nav_item("#", "Foorumi", true)(class="small-hide")
                   +nav_item("#", "Kazoku-projektista")
 
                   +nav_item("#", "Linkit")
