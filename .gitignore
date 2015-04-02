@@ -31,3 +31,6 @@ public/images/uutiskuvat
 
 # raw images
 public/images/raw
+
+# generated css
+public/public/*.css
