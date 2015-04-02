@@ -63,12 +63,16 @@ html
 
               .collapse.navbar-collapse#collapse-1
                 ul.nav.nav-stacked
-                  mixin nav_item(link, title)
+                  mixin nav_item(link, title, big)
                     li(role="presentation")
-                      a(href=link, class=attributes.class)= title
+                      a(href=link, class=attributes.class)
+                        if big
+                          strong= title
+                        else
+                          = title
 
-                  +nav_item("#", "IRC")
-                  +nav_item("#", "Foorumi")
+                  +nav_item("#", "IRC", true)
+                  +nav_item("#", "Foorumi", true)
                   +nav_item("#", "Kazoku-projektista")
 
                   +nav_item("#", "Linkit")

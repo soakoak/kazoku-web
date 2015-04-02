@@ -14,8 +14,6 @@
 @nav-link-hover-border: 1px solid @text-color;
 @nav-link-hover-color: @link-hover-color;
 @nav-link-hover-padding: 9px 15px;
-// @link-hover-color: #e87566;
-
 
 @grid-gutter-width: 10px;
 
@@ -73,6 +71,8 @@ nav {
 				color: @nav-link-hover-color;
 				border: @nav-link-hover-border;
 			}
+
+			.big-strong();
 		}
 	}
 
@@ -96,8 +96,7 @@ header {
 
 .content-wrapper {
 
-	@bottomMargin: 5px;
-	margin-bottom: @bottomMargin;
+	margin-bottom: 5px;
 
 	@media (min-width: @screen-sm-min) {
 			margin-bottom: 0px; 
@@ -141,7 +140,6 @@ main {
 
 	.ruutu {
 		.fill-in-textbox();
-
 
 		.kuva {
 			height: 150px; 
