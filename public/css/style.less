@@ -150,10 +150,9 @@ main {
 		.description {
 			.fill-in-textbox.padding();
 
-			height: 110px;
+			height: auto;
 
 			@media (min-width: @screen-sm-min) {
-			// @media (min-width: 992px) {
 				height: 150px; 
 			}
 
@@ -162,6 +161,13 @@ main {
 			h1 {
 				font-size: 18px; 
 				margin: 0 0 2px;
+			}
+
+			footer {
+				@media (min-width: @screen-sm-min) {
+					position: absolute;
+					bottom: 10px;
+				}
 			}
 		}
 	}
