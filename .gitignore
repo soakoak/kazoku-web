@@ -33,4 +33,4 @@ public/images/uutiskuvat
 public/images/raw
 
 # generated css
-public/public/*.css
+public/css/*.css
