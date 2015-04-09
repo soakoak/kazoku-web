@@ -42,21 +42,21 @@ module.exports = function (blog) {
       }
    });
    
-}
+   function requestRss (rssUri, feedparser) {
 
-function requestRss (rssUri, feedparser) {
+      var stream = request.get(rssUri);
+      stream.on('error', handleError);
 
-   var stream = request.get(rssUri);
-   stream.on('error', handleError);
+      stream.on('response', function (res) {
+         res.pipe(feedparser);
+      })
 
-   stream.on('response', function (res) {
-      res.pipe(feedparser);
-   })
-
-   function handleError(err) {
-      console.log(err, err.stack);
-      return process.exit(1);
+      function handleError(err) {
+         console.log(err, err.stack);
+         return process.exit(1);
+      }
    }
 }
+
 
 module.exports.lastResults = lastResults;
