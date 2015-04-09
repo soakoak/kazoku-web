@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var project = require('./routes/project')
 var links = require('./routes/links');
 var contact = require('./routes/contact');
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/projekti', project);
 app.use('/linkit', links);
 app.use('/yhteys', contact);
