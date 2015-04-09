@@ -5,7 +5,6 @@ var path = require('path');
 var Promise = require('bluebird');
 
 var AnimelehtiRss = require('./AnimelehtiRss');
-var TokiofiRss = require('./TokiofiRss');
 var CastRss = require('./KazokucastRss');
 var BlogRss = require('./BlogRss');
 var RssSources = require('./RssSources');
@@ -18,23 +17,37 @@ var blogMsgs = new Array();
 var BLOG_MSG_MAX = 5;
 
 function updateNews (logMsg) {
-   var join = Promise.join;
    var promisify = Promise.promisify;
    var getAnimelehtiNews = promisify(new AnimelehtiRss().makeRequest);
-   var getTokiofiNews = promisify(new TokiofiRss().makeRequest);
    var maxNews = RssSources.MAX_NEWS;
 
-   join(getAnimelehtiNews(), getTokiofiNews(),
-      function (animelehtiNews, tokiofiNews) {
-         var tempNews = animelehtiNews.concat(tokiofiNews);
-         tempNews.sort(newsCompare);
-         tempNews = tempNews.slice(0, maxNews);
+   getAnimelehtiNews().each(function (newsItem) {
+      newsItem.save().catch(function (e) {
+         console.log(
+            "Error while inserting news titled \"" 
+            + newsItem.title 
+            + "\", possible dublicate"
+         );
+      });
+   }).then(function (newsItems) {
+      console.log("Inserted any new news at " + new Date().toLocaleString());
+   }).catch(function (e) {
+      console.log("Error while entering news: " + e);
+   }).finally(function() {
+      refreshNewsList(maxNews);
+   });
 
-         news.length = 0;
-         news = tempNews;
+   function refreshNewsList(maxNews) {
+      var options = { 
+         order: "pubDate DESC", 
+         limit: maxNews
+      };
 
+      models.News.findAll(options).then(function (newsItems) {
+         news = newsItems;
          console.log("News updated at " + new Date().toLocaleString());
       });
+   }
 }
 
 function newsCompare(newsA, newsB) {

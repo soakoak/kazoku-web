@@ -6,21 +6,25 @@ var Promise = require('bluebird');
 
 var RssSources = require('./RssSources');
 
-var results = new Array();
-var rssOsoite = RssSources.animelehti.uri;
+var News = require(path.join(__dirname, '..', 'models')).News;
+
+var lastResults = new Array();
 
 module.exports = function () {
 
+   var rssOsoite = RssSources.animelehti.uri;
    var feedparser = new FeedParser();
+   var results = new Array();
 
    this.makeRequest = function (callback) {
       results.length = 0;
 
-      if(callback) {
-         feedparser.on('end', function() {
+      feedparser.on('end', function() {
+         if(callback) {
             callback(null, results);
-         });
-      }
+         }
+         lastResults = results;
+      });
       
       requestRss(rssOsoite, feedparser);
    }
@@ -34,22 +38,21 @@ module.exports = function () {
       var item;
       while (item = stream.read()) {
          //otetaan relevantit osat talteen ja liputetaan lähde
-         function Uutinen() {
-         }
-         Uutinen.source = RssSources.animelehti.id;
-         Uutinen.link = item.link;
-         Uutinen.imageName = parseImageName(item.guid);
+         var news = News.build();
+         news.source = RssSources.animelehti.id;
+         news.link = item.link;
+         news.imageName = parseImageName(item.guid);
 
          function parseImageName(guid) {
             return guid.substr(-5, 5)
          }
       
-         Uutinen.title = item.title;
-         Uutinen.pubDate = new Date(item.pubDate);
-         Uutinen.summary = item.summary;
-         results.push(Uutinen);
+         news.title = item.title;
+         news.pubDate = new Date(item.pubDate);
+         news.summary = item.summary;
+         results.push(news);
 
-         var imagePath = imagePath(Uutinen.imageName);
+         var imagePath = imagePath(News.imageName);
 
          function imagePath(imageName) {
             return path.join(__dirname, '..', 'public', 'images', 'uutiskuvat', imageName + ".jpg");
@@ -58,7 +61,7 @@ module.exports = function () {
          fs.exists(imagePath, function (exists) {
             if (!exists) {
                var requestUri = 'http://animelehti.fi/wordpress/wp-content/resized/posticons/' + 
-                     Uutinen.imageName +'_668x170.jpg';
+                     News.imageName +'_668x170.jpg';
                downloadImage( requestUri, imagePath).then(function (path) {
                   console.log("Downloaded image " + path);
                });
@@ -84,12 +87,18 @@ module.exports = function () {
 }
 
 function requestRss (rssUri, feedparser) {
+   
    var stream = request.get(rssUri);
-   stream.on('error', function (err) {
+   stream.on('error', handleError);
+
+   stream.on('response', function (res) {
+      res.pipe(feedparser);
+   })
+
+   function handleError(err) {
       console.log(err, err.stack);
       return process.exit(1);
-   });
-   stream.pipe(feedparser);
+   }
 }
 
-module.exports.results = results;
+module.exports.lastResults = lastResults;
