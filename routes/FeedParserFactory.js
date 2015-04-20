@@ -1,7 +1,10 @@
 'use strict';
 
-var path = require('path');
+var fs = require('fs');
 var FeedParser = require('feedparser');
+var path = require('path');
+var Promise = require('bluebird');
+var request = require('request');
 
 var News = require(path.join(__dirname, '..', 'models')).News;
 
@@ -10,9 +13,15 @@ module.exports = {
    getAnimelehtiFeedParser: function getAnimelehtiFeedParser(callback) {
 
       function downloadAnimelehtiImage(animelehtiImageName) {
-         function imagePath(imageName) {
+
+         function formImagePath(imageName) {
             return path.join(__dirname, '..', 'public', 'images', 
                'uutiskuvat', imageName + ".jpg");
+         }
+         
+         function formAnimelehtiNewsimageUri(imageName) {
+            return 'http://animelehti.fi/wordpress/wp-content/resized/posticons/' + 
+                  animelehtiImageName +'_668x170.jpg';
          }
 
          function downloadImage(requestUri, imagePath) {
@@ -20,7 +29,7 @@ module.exports = {
 
                var imageStream = request(requestUri);
                var writeStream = fs.createWriteStream(imagePath);
-               writeStream.on('error', function(err) {
+               writeStream.on('error', function onError(err) {
                   console.log(err);
                });
                imageStream.pipe(writeStream);
@@ -28,6 +37,19 @@ module.exports = {
                resolve(imagePath);
             });
          }
+
+         var imagePath = formImagePath(animelehtiImageName);
+
+         fs.exists(imagePath, function downloadIfNotExists(fileExists) {
+
+            if(!fileExists) {
+               var uri = formAnimelehtiNewsimageUri( animelehtiImageName);
+
+               downloadImage(uri, imagePath).then(function afterDownload( path) {
+                  console.log("Downloaded image " + path);
+               });
+            }
+         });
 
       }
 
@@ -48,10 +70,6 @@ module.exports = {
          downloadAnimelehtiImage(news.imageName);
 
          callback(null, news);
-      }
-
-      function animelehtiCallback(error, items) {
-         console.log('animelehti callback');
       }
 
       var animelehtiFeedParser = module.exports.getDefaultFeedParser(

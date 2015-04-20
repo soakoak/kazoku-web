@@ -1,6 +1,5 @@
 var FeedParserFactory = require('./FeedParserFactory');
 var PipedRequest = require('./PipedRequest');
-var RssSources = require('./RssSources');
 
 module.exports = AnimelehtiRss;
 
