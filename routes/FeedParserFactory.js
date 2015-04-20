@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 var FeedParser = require('feedparser');
 var News = require(path.join(__dirname, '..', 'models')).News;
 var RssSources = require('./RssSources');
@@ -46,8 +48,7 @@ module.exports = {
 
          downloadAnimelehtiImage(news.imageName);
 
-         console.log('animelehti-item handled');
-         callback(null, item);
+         callback(null, news);
       }
 
       function animelehtiCallback(error, items) {
@@ -70,28 +71,28 @@ module.exports = {
       var feedparser = new FeedParser();
 
       this.itemHandlerFunction = (typeof rssItemHandler === 'function') 
-      ? rssItemHandler 
-      : defaultItemHandler;
+            ? rssItemHandler 
+            : defaultItemHandler;
 
       function defaultItemHandler (item, callback) {
-         console.log("item handled");
+         console.log("Default item handler called - no procedures done.");
          callback(null, item);
       };
 
       this.callback = (typeof callback === 'function') 
-      ? callback 
-      : noCallback;
+            ? callback 
+            : noCallback;
 
       function noCallback(error, items) { 
-         console.log('no callback function was provided. Items handled: ' + 
-            self.results.length);
+         console.log('No callback function was provided. Number of items handled: ' + 
+            feedparser.results.length + ".");
       };
 
-      this.results = [];
+      feedparser.results = [];
 
       feedparser.on('end', function onEnd() {
          console.log('end');
-         self.callback(null, self.results);
+         self.callback(null, feedparser.results);
       });
 
       feedparser.on('error', function onError(err) {
@@ -103,10 +104,8 @@ module.exports = {
          var item;
          while (item = stream.read()) {
 
-            //TODO FIX THIS
             self.itemHandlerFunction(item, function afterHandling(error, item) {
-               console.log("item pushed");
-               self.results.push(item);
+               feedparser.results.push(item);
             });
          }
       });
@@ -118,13 +117,3 @@ module.exports = {
 
    }
 }
-
-/*
-var PipedRequest = require('./PipedRequest');
-var fpf = require('./FeedParserFactory');
-var fp = fpf.getAnimelehtiFeedParser();
-
-var uri = 'http://blog.toriman.net/rss.php';
-var piper = new PipedRequest(uri, fp);
-piper.pipe();
-*/

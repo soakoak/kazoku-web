@@ -1,3 +1,5 @@
+'use strict';
+
 var jade = require('jade')
 var express = require('express');
 var Intl = require('intl');
@@ -11,12 +13,12 @@ var RssSources = require('./RssSources');
 var models = require(path.join(__dirname, '..', 'models'));
 
 var router = express.Router();
-var news = new Array();
-var casts = new Array();
-var blogMsgs = new Array();
+var news = [];
+var casts = [];
+var blogMsgs = [];
 var BLOG_MSG_MAX = 5;
 
-function updateNews (logMsg) {
+function updateNews () {
    var promisify = Promise.promisify;
    var getAnimelehtiNews = promisify(new AnimelehtiRss().makeRequest);
    var maxNews = RssSources.MAX_NEWS;
