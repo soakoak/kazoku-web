@@ -1,3 +1,5 @@
+'use strict';
+
 var FeedParserFactory = require('./FeedParserFactory');
 var PipedRequest = require('./PipedRequest');
 
@@ -25,9 +27,8 @@ function AnimelehtiRss () {
          callback(error, results);
       }
 
-      var feedparser = FeedParserFactory.getAnimelehtiFeedParser(onEnd);
+      var feedparser = FeedParserFactory.getAnimelehtiFeedParser(0, onEnd);
       var pipedRequest = new PipedRequest(uri, feedparser);
       pipedRequest.pipe();
    }
 }
-

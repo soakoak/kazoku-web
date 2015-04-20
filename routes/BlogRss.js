@@ -1,62 +1,35 @@
-var FeedParser = require('feedparser');
-var fs = require('fs');
-var path = require('path');
-var request = require('request');
+'use strict';
 
-var BlogMsg = require(path.join(__dirname, '..', 'models')).BlogMsg;
+var FeedParserFactory = require('./FeedParserFactory');
+var PipedRequest = require('./PipedRequest');
 
-var lastResults = new Array();
+module.exports = BlogRss;
 
-module.exports = function (blog) {
+function BlogRss (blog) {
 
-   var rssOsoite = blog.rss;
-   var feedparser = new FeedParser();
-   var results = new Array();
+   var self = this;
+
+   this.targetUri = blog.rss;
+   this.lastResults = [];
 
    this.makeRequest = function (callback) {
 
-      feedparser.on('end', function() {
-         if(callback) {
-            callback(null, results);
-         }
-         lastResults = results;
-      });
-      
-      requestRss(rssOsoite, feedparser);
-   }
+      callback = (typeof callback === 'function') 
+            ? callback 
+            : noCallback;
 
-   feedparser.on('error', function(err) {
-      console.log(err);
-   });
-   feedparser.on('readable', function() {
-      
-      var stream = this;
-      var item;
-      while (item = stream.read()) {
-         var msg = BlogMsg.build();
-         msg.blogid = blog.id;
-         msg.title = item.title;
-         msg.link = item.link;
-         msg.pubDate = new Date(item.pubDate);
-         results.push(msg);
+      function noCallback(error, results) { 
+         console.log('No callback function was provided.');
+      };
+
+      function onEnd(error, results) {
+         self.lastResults = results;
+         callback(error, results);
       }
-   });
-   
-   function requestRss (rssUri, feedparser) {
 
-      var stream = request.get(rssUri);
-      stream.on('error', handleError);
+      var feedparser = FeedParserFactory.getBlogFeedParser(blog.id, onEnd);
+      var pipedRequest = new PipedRequest(self.targetUri, feedparser);
 
-      stream.on('response', function (res) {
-         res.pipe(feedparser);
-      })
-
-      function handleError(err) {
-         console.log(err, err.stack);
-         return process.exit(1);
-      }
+      pipedRequest.pipe();
    }
 }
-
-
-module.exports.lastResults = lastResults;

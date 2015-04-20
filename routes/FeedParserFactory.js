@@ -7,10 +7,11 @@ var Promise = require('bluebird');
 var request = require('request');
 
 var News = require(path.join(__dirname, '..', 'models')).News;
+var BlogMsg = require(path.join(__dirname, '..', 'models')).BlogMsg;
 
 module.exports = {
 
-   getAnimelehtiFeedParser: function getAnimelehtiFeedParser(callback) {
+   getAnimelehtiFeedParser: function getAnimelehtiFeedParser(sourceId, callback) {
 
       function downloadAnimelehtiImage(animelehtiImageName) {
 
@@ -55,7 +56,7 @@ module.exports = {
 
       function itemHandler(item, callback) {
          var news = News.build();
-         news.source = 0;
+         news.source = sourceId;
          news.link = item.link;
          news.imageName = parseImageName(item.guid);
 
@@ -74,20 +75,32 @@ module.exports = {
 
       var animelehtiFeedParser = module.exports.getDefaultFeedParser(
          itemHandler, callback);
-      console.log('made animelehtifeedparser');
 
       return animelehtiFeedParser;
    },
    
-   getBlogFeedParser: function getBlogFeedParser() {
+   getBlogFeedParser: function getBlogFeedParser(blogId, callback) {
 
+      function itemHandler(item, callback) {
+         var msg = BlogMsg.build();
+         msg.blogid = blogId;
+         msg.title = item.title;
+         msg.link = item.link;
+         msg.pubDate = new Date(item.pubDate);
+         
+         callback(null, msg);
+      }
+
+      var blogFeedParser = module.exports.getDefaultFeedParser(
+         itemHandler, callback);
+
+      return blogFeedParser;
    },
 
    getDefaultFeedParser: function getDefaultFeedParser(rssItemHandler, callback) {
-      var self = this;
       var feedparser = new FeedParser();
 
-      this.itemHandlerFunction = (typeof rssItemHandler === 'function') 
+      rssItemHandler = (typeof rssItemHandler === 'function') 
             ? rssItemHandler 
             : defaultItemHandler;
 
@@ -96,7 +109,7 @@ module.exports = {
          callback(null, item);
       };
 
-      this.callback = (typeof callback === 'function') 
+      callback = (typeof callback === 'function') 
             ? callback 
             : noCallback;
 
@@ -108,8 +121,7 @@ module.exports = {
       feedparser.results = [];
 
       feedparser.on('end', function onEnd() {
-         console.log('end');
-         self.callback(null, feedparser.results);
+         callback(null, feedparser.results);
       });
 
       feedparser.on('error', function onError(err) {
@@ -121,7 +133,7 @@ module.exports = {
          var item;
          while (item = stream.read()) {
 
-            self.itemHandlerFunction(item, function afterHandling(error, item) {
+            rssItemHandler(item, function afterHandling(error, item) {
                feedparser.results.push(item);
             });
          }
@@ -134,3 +146,13 @@ module.exports = {
 
    }
 }
+
+
+/*
+var Blog = require('../models').Blog;
+var b; 
+Blog.find(1).then( function (blog) { b = blog; });
+var BlogRss = require('./BlogRss');
+var rss = new BlogRss(b)
+rss.makeRequest()
+*/
