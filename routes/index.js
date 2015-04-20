@@ -56,7 +56,13 @@ function updateNews () {
 
 function updateBlogs() {
 
-   models.Blog.findAll().each(function (blog) {
+   var options = { 
+      where: {
+         id: { $ne: 4 }
+      }
+   };
+
+   models.Blog.findAll(options).each(function (blog) {
 
       function getBlogLastUpdated(blogId) {
          return new Promise(function (resolve, reject) {
@@ -80,7 +86,7 @@ function updateBlogs() {
       }
 
       function getNewEntries(blog) {
-         
+
          var lastUpdate = getBlogLastUpdated(blog.id);
          var promisify = Promise.promisify;
          var getAllBlogEntries = promisify(new BlogRss(blog).makeRequest);
@@ -145,12 +151,12 @@ function updateCasts(logMsg) {
    });
 }
 
-updateNews();
-setInterval(updateNews, updateInterval);
+// updateNews();
+// setInterval(updateNews, updateInterval);
 updateBlogs();
 setInterval(updateBlogs, updateInterval);
-updateCasts();
-setInterval(updateCasts, updateInterval);
+// updateCasts();
+// setInterval(updateCasts, updateInterval);
 
 router.get('/', function(req, res) {
    res.render('index', 
