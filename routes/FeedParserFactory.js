@@ -1,10 +1,9 @@
 'use strict';
 
 var path = require('path');
-
 var FeedParser = require('feedparser');
+
 var News = require(path.join(__dirname, '..', 'models')).News;
-var RssSources = require('./RssSources');
 
 module.exports = {
 
@@ -34,7 +33,7 @@ module.exports = {
 
       function itemHandler(item, callback) {
          var news = News.build();
-         news.source = RssSources.animelehti.id;
+         news.source = 0;
          news.link = item.link;
          news.imageName = parseImageName(item.guid);
 

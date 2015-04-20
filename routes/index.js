@@ -9,7 +9,6 @@ var Promise = require('bluebird');
 var AnimelehtiRss = require('./AnimelehtiRss');
 var CastRss = require('./KazokucastRss');
 var BlogRss = require('./BlogRss');
-var RssSources = require('./RssSources');
 var models = require(path.join(__dirname, '..', 'models'));
 
 var router = express.Router();
@@ -21,7 +20,7 @@ var BLOG_MSG_MAX = 5;
 function updateNews () {
    var promisify = Promise.promisify;
    var getAnimelehtiNews = promisify(new AnimelehtiRss().makeRequest);
-   var maxNews = RssSources.MAX_NEWS;
+   var MAX_NEWS_COUNT = 3;
 
    getAnimelehtiNews().each(function (newsItem) {
       newsItem.save().catch(function (e) {
@@ -36,13 +35,13 @@ function updateNews () {
    }).catch(function (e) {
       console.log("Error while entering news: " + e);
    }).finally(function() {
-      refreshNewsList(maxNews);
+      refreshNewsList(MAX_NEWS_COUNT);
    });
 
-   function refreshNewsList(maxNews) {
+   function refreshNewsList(newsCount) {
       var options = { 
          order: "pubDate DESC", 
-         limit: maxNews
+         limit: newsCount
       };
 
       models.News.findAll(options).then(function (newsItems) {
