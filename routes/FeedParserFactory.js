@@ -142,7 +142,21 @@ module.exports = {
       return feedparser;
    },
 
-   getKazokucastFeedParser: function getKazokucastFeedParser() {
+   getKazokucastFeedParser: function getKazokucastFeedParser(callback) {
 
+      function itemHandler(item, callback) {
+         function Cast() {
+         }
+         Cast.title = item.title;
+         Cast.pubDate = new Date(item.pubDate);
+         Cast.content = item["content:encoded"]['#'];
+
+         callback(null, Cast);
+      }
+
+      var kazokucastFeedParser = module.exports.getDefaultFeedParser(
+         itemHandler, callback);
+
+      return kazokucastFeedParser;
    }
 }

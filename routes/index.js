@@ -15,15 +15,15 @@ var router = express.Router();
 var news = [];
 var casts = [];
 var blogMsgs = [];
-var BLOG_MSG_MAX = 5;
-var updateInterval = 60 * 60 * 1000; // Päivitystahti millisekunteina.
+var MAX_BLOG_MSG_COUNT = 5;
+var MAX_NEWS_COUNT = 3;
+var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 
 module.exports = router;
 
 function updateNews () {
    var promisify = Promise.promisify;
    var getAnimelehtiNews = promisify(new AnimelehtiRss().makeRequest);
-   var MAX_NEWS_COUNT = 3;
 
    getAnimelehtiNews().each(function (newsItem) {
       newsItem.save().catch(function (e) {
@@ -114,7 +114,7 @@ function updateBlogs() {
       var options = { 
             attributes: ['title', 'link', 'pubDate', 'blogid'],
             order: "pubDate DESC", 
-            limit: BLOG_MSG_MAX 
+            limit: MAX_BLOG_MSG_COUNT 
       };
       var tempBlogMsgs = new Array();
       
@@ -141,7 +141,7 @@ function updateBlogs() {
    }
 }
 
-function updateCasts(logMsg) {
+function updateCasts() {
    var join = Promise.join;
    var getCasts = Promise.promisify(new CastRss().makeRequest);
 
@@ -151,12 +151,12 @@ function updateCasts(logMsg) {
    });
 }
 
-// updateNews();
-// setInterval(updateNews, updateInterval);
+updateNews();
+setInterval(updateNews, UPDATE_INTERVAL);
 updateBlogs();
-setInterval(updateBlogs, updateInterval);
-// updateCasts();
-// setInterval(updateCasts, updateInterval);
+setInterval(updateBlogs, UPDATE_INTERVAL);
+updateCasts();
+setInterval(updateCasts, UPDATE_INTERVAL);
 
 router.get('/', function(req, res) {
    res.render('index', 

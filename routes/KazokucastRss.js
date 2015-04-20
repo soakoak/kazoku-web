@@ -1,51 +1,35 @@
-var FeedParser = require('feedparser');
-var request = require('request');
+'use strict';
 
-var results = new Array();
-var rssOsoite = "http://feeds.feedburner.com/Kazokucast?format=xml";
+var FeedParserFactory = require('./FeedParserFactory');
+var PipedRequest = require('./PipedRequest');
 
-function requestRss (rssUri, feedparser) {
-   var stream = request.get(rssUri);
-   stream.on('error', function (err) {
-      console.log(err, err.stack);
-      return process.exit(1);
-   });
-   stream.pipe(feedparser);
-}
+module.exports = KazokucastRss;
 
-module.exports.result = results;
-module.exports = function () {
+function KazokucastRss () {
 
-   var feedparser = new FeedParser();
+   var self = this;
+   
+   this.targetUri = "http://feeds.feedburner.com/Kazokucast?format=xml";
+   this.lastResult = [];
 
    this.makeRequest = function (callback) {
-      results.length = 0;
 
-      if(callback) {
-         feedparser.on('end', function() {
-            callback(null, results);
-         });
+      callback = (typeof callback === 'function') 
+            ? callback 
+            : noCallback;
+
+      function noCallback(error, results) { 
+         console.log('No callback function was provided.');
+      };
+
+      function onEnd(error, results) {
+         self.lastResults = results;
+         callback(error, results);
       }
-      
-      requestRss(rssOsoite, feedparser);
+
+      var feedparser = FeedParserFactory.getKazokucastFeedParser(onEnd);
+      var pipedRequest = new PipedRequest(self.targetUri, feedparser);
+
+      pipedRequest.pipe();
    }
-
-   feedparser.on('error', function(err) {
-      console.log(err);
-   });
-   feedparser.on('readable', function() {
-      
-      var stream = this;
-      var item;
-      while (item = stream.read()) {
-         //otetaan relevantit osat talteen ja liputetaan lähde
-         function Cast() {
-         }
-         Cast.title = item.title;
-         Cast.pubDate = new Date(item.pubDate);
-         Cast.content = item["content:encoded"]['#'];
-
-         results.push(Cast);
-      }
-   });
 }
