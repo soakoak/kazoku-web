@@ -87,7 +87,7 @@ module.exports = {
          msg.title = item.title;
          msg.link = item.link;
          msg.pubDate = new Date(item.pubDate);
-         
+
          callback(null, msg);
       }
 
@@ -146,13 +146,3 @@ module.exports = {
 
    }
 }
-
-
-/*
-var Blog = require('../models').Blog;
-var b; 
-Blog.find(1).then( function (blog) { b = blog; });
-var BlogRss = require('./BlogRss');
-var rss = new BlogRss(b)
-rss.makeRequest()
-*/
