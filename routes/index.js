@@ -16,6 +16,9 @@ var news = [];
 var casts = [];
 var blogMsgs = [];
 var BLOG_MSG_MAX = 5;
+var updateInterval = 60 * 60 * 1000; // Päivitystahti millisekunteina.
+
+module.exports = router;
 
 function updateNews () {
    var promisify = Promise.promisify;
@@ -48,20 +51,6 @@ function updateNews () {
          news = newsItems;
          console.log("News updated at " + new Date().toLocaleString());
       });
-   }
-}
-
-function newsCompare(newsA, newsB) {
-   return dateCompare(newsA.pubDate, newsB.pubDate);
-}
-
-function dateCompare(dateA, dateB) {
-   if( dateA < dateB) {
-      return 1;
-   } else if( dateA === dateB) {
-      return 0;
-   } else {
-      return -1;
    }
 }
 
@@ -152,18 +141,16 @@ function updateCasts(logMsg) {
 
    getCasts().then(function(newCasts) {
       casts = newCasts;
-      console.log("Casts updated at " + new Date().toLocaleString());
+      console.log("Casts updated " + new Date().toLocaleString());
    });
 }
 
-// Päivitystahti millisekunteina.
-var delay = 60 * 60 * 1000; 
 updateNews();
-setInterval(updateNews, delay);
+setInterval(updateNews, updateInterval);
 updateBlogs();
-setInterval(updateBlogs, delay);
+setInterval(updateBlogs, updateInterval);
 updateCasts();
-setInterval(updateCasts, delay);
+setInterval(updateCasts, updateInterval);
 
 router.get('/', function(req, res) {
    res.render('index', 
@@ -178,5 +165,3 @@ router.get('/', function(req, res) {
             })
       });
 });
-
-module.exports = router;
