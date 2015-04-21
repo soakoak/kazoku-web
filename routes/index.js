@@ -6,9 +6,10 @@ var Intl = require('intl');
 var path = require('path');
 var Promise = require('bluebird');
 
-var AnimelehtiRss = require('./AnimelehtiRss');
-var CastRss = require('./KazokucastRss');
-var BlogRss = require('./BlogRss');
+var libs = '../libs/';
+var AnimelehtiRss = require(libs + 'AnimelehtiRss');
+var CastRss = require(libs + 'KazokucastRss');
+var BlogRss = require(libs + 'BlogRss');
 var models = require(path.join(__dirname, '..', 'models'));
 
 var router = express.Router();
