@@ -10,6 +10,7 @@ var libs = '../libs/';
 var AnimelehtiRss = require(libs + 'AnimelehtiRss');
 var CastRss = require(libs + 'KazokucastRss');
 var BlogRss = require(libs + 'BlogRss');
+var NewsHandler = require(libs + 'NewsHandler');
 var models = require(path.join(__dirname, '..', 'models'));
 
 var router = express.Router();
@@ -23,36 +24,10 @@ var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 module.exports = router;
 
 function updateNews () {
-   var promisify = Promise.promisify;
-   var getAnimelehtiNews = promisify(new AnimelehtiRss().makeRequest);
-
-   getAnimelehtiNews().each(function (newsItem) {
-      newsItem.save().catch(function (e) {
-         console.log(
-            "Error while inserting news titled \"" 
-            + newsItem.title 
-            + "\", possible dublicate"
-         );
-      });
-   }).then(function (newsItems) {
-      console.log("Inserted any new news at " + new Date().toLocaleString());
-   }).catch(function (e) {
-      console.log("Error while entering news: " + e);
-   }).finally(function() {
-      refreshNewsList(MAX_NEWS_COUNT);
+   var getNews = Promise.promisify(NewsHandler.getNews);
+   getNews(MAX_NEWS_COUNT).then(function whenDone(newsItems) {
+      news = newsItems;
    });
-
-   function refreshNewsList(newsCount) {
-      var options = { 
-         order: "pubDate DESC", 
-         limit: newsCount
-      };
-
-      models.News.findAll(options).then(function (newsItems) {
-         news = newsItems;
-         console.log("News updated at " + new Date().toLocaleString());
-      });
-   }
 }
 
 function updateBlogs() {
