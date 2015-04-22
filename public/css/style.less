@@ -110,19 +110,19 @@ nav {
 	
 	}
 
-		.nav > li {
-			.reverse();
+	.nav > li {
+		.reverse();
 
-			> a {
-				&:hover, &:focus {
-					padding: @nav-link-hover-padding;
-					color: @nav-link-hover-color;
-					border: @nav-link-hover-border;
-				}
-
-				.big-strong();
+		> a {
+			&:hover, &:focus {
+				padding: @nav-link-hover-padding;
+				color: @nav-link-hover-color;
+				border: @nav-link-hover-border;
 			}
+
+			.big-strong();
 		}
+	}
 
 }
 
@@ -186,6 +186,10 @@ main {
 	padding-top: 5px;
 	margin-bottom: 10px;
 
+	.uutisrivi {
+		margin-bottom: 5px;
+	}
+
 	.ruutu {
 		.fill-in-textbox();
 
@@ -201,7 +205,11 @@ main {
 			height: auto;
 
 			@media (min-width: @screen-sm-min) {
-				height: 150px; 
+				height: 200px; 
+			}
+
+			@media (min-width: @screen-lg-min) {
+				height: 175px; 
 			}
 
 			.big-strong();

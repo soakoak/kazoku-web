@@ -49,7 +49,7 @@ html
       div.row
         block nav
           nav.col-md-3
-            .mascot-wrapper
+            a(href="/").mascot-wrapper
               img(src="/images/kazokun3-crop.png", id="maskotti", alt="Kazo-kun")
 
             .navbar.navbar-default
@@ -81,7 +81,7 @@ html
                   +nav_item("#", "Kazoku-projektista")
 
                   +nav_item("#", "Linkit")
-                  +nav_item("#", "Uutiset")
+                  +nav_item("/news", "Uutiset")
                   +nav_item("#", "Blogit")
                   +nav_item("#", "Tapahtumat & miitit")
                   +nav_item("#", "Ota yhteyttä")

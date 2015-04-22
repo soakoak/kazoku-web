@@ -6,11 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 
-var routes = require('./routes/index');
-var project = require('./routes/project')
-var links = require('./routes/links');
-var contact = require('./routes/contact');
-var ircHelp = require('./routes/ircHelp');
+var index = require('./routes/index');
+var news = require('./routes/news');
+// var project = require('./routes/project')
+// var links = require('./routes/links');
+// var contact = require('./routes/contact');
+// var ircHelp = require('./routes/ircHelp');
 
 var app = express();
 
@@ -27,11 +28,12 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')));
 
-app.use('/', routes);
-app.use('/projekti', project);
-app.use('/linkit', links);
-app.use('/yhteys', contact);
-app.use('/irc', ircHelp);
+app.use('/', index);
+app.use('/news', news);
+// app.use('/projekti', project);
+// app.use('/linkit', links);
+// app.use('/yhteys', contact);
+// app.use('/irc', ircHelp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -7,7 +7,6 @@ var path = require('path');
 var Promise = require('bluebird');
 
 var libs = '../libs/';
-var AnimelehtiRss = require(libs + 'AnimelehtiRss');
 var CastRss = require(libs + 'KazokucastRss');
 var BlogRss = require(libs + 'BlogRss');
 var NewsHandler = require(libs + 'NewsHandler');
