@@ -22,26 +22,9 @@
    <ToriSohva> ja tabletilla tosiaan valikko vois muuttua nauhaks johonkin sinne sivun yläreunaan ja Kazo-kun kadota kokonaan, kännykällä vaikka pelkkä irkkikannu ja foorumilinkki näkyviin ja loput jonkun namiskan taakse
    <ToriSohva> Ja sitten loppu sisältö niin, että noi lootat menee päällekäin
 
-   Uutiset:
-      <ToriSohva> niitä uutisia haetaan se 9 kpl mutta nja näytetään kerralla vaan 3 tai niin monta ku ruudulle mahtuu, mutta niitä vvoi rullata siinä
-      <ToriSohva> eli sivulta tulee nuolesta lisää ja lopussa ptörähtää ympäri
-      Mar 25 18:20:02 <Irrotation>  toi ei oikein toimi jos selaat kännykällä
-      Mar 25 18:21:31 <Irrotation>  kännykällä uutiset täytyy väkisinkin laittaa tulemaan yksitellen ylhäältä alas. Itse ehdottaisin linkkiä "Lisää uutisia" tms. joka sitten veisi sivulle joka lataa niitä enemmän
-      Mar 25 18:47:00 <ToriSohva>   Se vaan on vähän huono jos sillä sivulla niitä uutisia on vaan se 9
-      Mar 25 18:47:02 <ToriSohva>   yhteensä
-      Mar 25 18:47:12 <ToriSohva>   Koska Anime-lehden syötteestä ei saa haettua enempää
-      Mar 25 18:47:16 <ToriSohva>   Tai siis
-      Mar 25 18:47:19 <ToriSohva>   Siellä on vaan 10
-      Mar 25 18:48:00 <ToriSohva>   Mun mielestä kännykällä vois olla ihan vaan yks uutinen näkyvis kerrallaan tai sit kylmästi et kännykällä kuvat pois ja blogityylinen listaus uutisillekin
-      Mar 25 18:52:41 <Irrotation>  niitä uutisiahan voisi tallentaa tietokantaan blogien tapaan jos haluaa enemmän, tai sitten asetella ne siten että ne vievät enemmän tilaa
-      Mar 25 18:52:41 * [ToriSohva] is away (not here ...)
-      Mar 25 18:55:08 <Irrotation>  noista sivuista tulee kännykällä selatessa todella minimalistiset jos näytetään vain yksi kerrallaan, puhumattakaan siitä miten hankalaksi uutisten selaaminen tulee jos pitää yksi kerrallaan. Mielestäni sivu joka sisältää listan olisi tämänkin takia hyvä
-      Mar 25 19:20:13 <ToriSohva>   Niin no, niitä vois kyllä tallennella tosiaan
-      Mar 25 19:20:53 <ToriSohva>   Tuskinpa siitä mitään haittaa olis
-      Mar 25 19:21:17 <ToriSohva>   Joo, tee se sillai vaan. Katotaan sitten kun oot valmis että ruvetaanko rukkaamaan sitä erilaiseks
-      Mar 25 19:21:54 <ToriSohva>   Helpostihan sinne sitten lisää juttuja kun se on kerran tehty
+   <ToriSohva> Hmm, ton lisää uutisia -linkin pitäis ehkä olla boldattu tai jotenkin muuten helpompi nähdä etusivulla, mut katotaan se vaikka sitten samalla ku muutenkin viimeistellään fontit ja fonttikoot
 
-      korjaa 2015-03-27 18_56_18-Kazoku.png
+   korjaa 2015-03-27 18_56_18-Kazoku.png
 
 -uuden version uppiminen
    -kytköksissä uuteen ulkoasuun?
