@@ -11,15 +11,16 @@ var newsCache = [];
 
 var UPDATE_INTERVAL = 60 * 60 * 1000; //Hour
 var lastUpdate = false;
+var updating = false;
 
 module.exports = {
 
    getNews: function getNews(amount, callback) {
 
-         amount = amount || 0;
-         callback = (typeof callback === 'function') 
-            ? callback 
-            : noCallback;
+      amount = amount || 0;
+      callback = (typeof callback === 'function') 
+         ? callback 
+         : noCallback;
 
       var updateNews = Promise.promisify(module.exports.updateNews);
       updateNews().then(function afterUpdate(result) {
@@ -49,35 +50,52 @@ module.exports = {
          return timeFromLastUpdate > updateInterval;
       }
 
-      if ( !lastUpdate || updateIsNeeded(now, lastUpdate, UPDATE_INTERVAL) ) {
-         console.log('Updating news at ' + now.toLocaleString() + '.');
+      function waitForUpdateToBeDone(timeout, callback) {
+         timeout = timeout || 100;
 
-         var pUpdateNews = Promise.promisify(updateNews);
+         if(updating) {
+            console.log('Waiting for update to be done');
+            setTimeout(waitForUpdateToBeDone, timeout, timeout, callback);
+         } else {
+            callback(null, false);
+         }
+      }
 
-         pUpdateNews().then(function afterUpdate(newNews) {
-            return new Promise(function (resolve, reject) {
+      if (!lastUpdate || updateIsNeeded(now, lastUpdate, UPDATE_INTERVAL) ) {
+         if(!updating) {
+            console.log('Updating news at ' + now.toLocaleString() + '.');
+            updating = true;
+            var pUpdateNews = Promise.promisify(updateNews);
 
-               if( newsCache.length == 0 || newNews.length > 0) {
-                  var update = Promise.promisify(updateCache);
-                  update().then(function afterCacheUpdate(fetchedNews) {
-                     resolve(true);
-                  });
+            pUpdateNews().then(function afterUpdate(newNews) {
+               return new Promise(function (resolve, reject) {
+
+                  if( newsCache.length == 0 || newNews.length > 0) {
+                     var update = Promise.promisify(updateCache);
+                     update().then(function afterCacheUpdate(fetchedNews) {
+                        resolve(true);
+                     });
+                  } else {
+                     resolve(false);
+                  } 
+               });
+
+            }).then(function lastly(result){
+               if(result == true) {
+                  console.log('Succesfully updated cache.');
                } else {
-                  resolve(false);
-               } 
+                  console.log('There was no need to update cache.');
+               }
+               lastUpdate = now;
+               updating = false;
+               if(callback) {
+                  callback(null, true);
+               }
             });
-
-         }).then(function lastly(result){
-            if(result == true) {
-               console.log('Succesfully updated cache.');
-            } else {
-               console.log('There was no need to update cache.');
-            }
-            lastUpdate = now;
-            if(callback) {
-               callback(null, true);
-            }
-         });
+         } else {
+            waitForUpdateToBeDone(1000, callback);
+            
+         }
          
       } else {
          console.log('No update was done at ' + now.toLocaleString() + '.');
