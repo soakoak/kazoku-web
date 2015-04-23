@@ -1,33 +1,39 @@
 extends layout
 
 block content
-  p.
-    IRC (irkki) on reaaliaikainen internetchat, jossa liitytään erilaisille kanaville, eli kannuille, 
-    jotka alkavat joko risuaidalla tai huutomerkillä. Esimerkiksi #kazoku.
-  p.
-    Tämä yksinkertainen ohje opastaa aloittelijoita IRC:in käyttöön HexChat-clientin kautta. 
-    HexChat on ladattava IRC-ohjelma, jolla voit yhdistää IRC-verkkoihin ja 
-    liittyä kanavallemme keskustelemaan muiden kazokulaisten kanssa!
+  #irc-help.row
+    .col-xs-12
+      p.
+        IRC (irkki) on reaaliaikainen internetchat, jossa liitytään erilaisille kanaville, eli kannuille,
+        jotka alkavat joko risuaidalla tai huutomerkillä. Esimerkiksi #kazoku.
+      p.
+        Tämä yksinkertainen ohje opastaa aloittelijoita IRC:in käyttöön HexChat-clientin kautta.
+        HexChat on ladattava IRC-ohjelma, jolla voit yhdistää IRC-verkkoihin ja
+        liittyä kanavallemme keskustelemaan muiden kazokulaisten kanssa!
 
-  ol
-    li.
-      Mene osoitteeseen <a href="http://hexchat.github.io/" target="_blank">http://hexchat.github.io/</a>, 
-      klikkaa yläpalkista Get Downloads ja valitse sieltä käyttöjärjestelmääsi sopiva latauspaketti 
-      (mikäli käytät Windowsia, etkä ole varma, valitse x86, joka toimii kaikilla). 
-      Mikäli asennus ei käynnisty latauksen jälkeen automaattisesti, valitse latauskansiostasi tiedosto HexChat 2.9.6.1 x86(/x64).
-    img(src="/images/irkki_ohje_1.png")
-    li.
-      Täytä seuraavat kohdat ohjelman avattuasi:<br>
-      Kutsumanimi: Nimimerkkisi<br>
-      2. vaihtoehto: Vaihtoehtoinen nimimerkki, mikäli ensimmäinen on jo käytössä<br>
-      3. vaihtoehto: Vaihtoehtoinen nimimerkki, mikäli toinenkin on jo käytössä<br>
-      Käyttäjätunnus: Nimimerkkisi tai muu nimesi
-    li Valitse Quakenet ja napsauta Muokkaa.
-    img(src="/images/irkki_ohje_2.png")
-    li Muokkaus-ikkunassa oletuksena oleva serveri ei yleensä toimi. Varmuuden vuoksi lisätään uusi napsauttamalla Lisää.
-    li Korvaa newserver kirjoittamalla sen tilalle irc.quakenet.org ja napsauta Sulje.
-    li Valitse Quakenet ja napsauta Yhdistä. HexChat yhdistää sinut palvelimeen.
-    img(src="/images/irkki_ohje_3.png")
-    li Kirjoita tekstikenttään /j #kazoku ja napsauta enter
-    img(src="/images/irkki_ohje_4.png")
-    p Onneksi olkoon ja tervetuloa! Olet päässyt onnistuneesti perille!
+      ol
+        li.
+          Mene osoitteeseen <a href="http://hexchat.github.io/" target="_blank">http://hexchat.github.io/</a>,
+          klikkaa yläpalkista Get Downloads ja valitse sieltä käyttöjärjestelmääsi sopiva latauspaketti
+          (mikäli käytät Windowsia, etkä ole varma, valitse x86, joka toimii kaikilla).
+          Mikäli asennus ei käynnisty latauksen jälkeen automaattisesti, valitse latauskansiostasi tiedosto HexChat 2.9.6.1 x86(/x64).
+
+        img(src="/images/irkki_ohje_1.png")
+        li.
+          Täytä seuraavat kohdat ohjelman avattuasi:<br>
+          Kutsumanimi: Nimimerkkisi<br>
+          2. vaihtoehto: Vaihtoehtoinen nimimerkki, mikäli ensimmäinen on jo käytössä<br>
+          3. vaihtoehto: Vaihtoehtoinen nimimerkki, mikäli toinenkin on jo käytössä<br>
+          Käyttäjätunnus: Nimimerkkisi tai muu nimesi
+        li Valitse Quakenet ja napsauta Muokkaa.
+
+        img(src="/images/irkki_ohje_2.png")
+        li Muokkaus-ikkunassa oletuksena oleva serveri ei yleensä toimi. Varmuuden vuoksi lisätään uusi napsauttamalla Lisää.
+        li Korvaa newserver kirjoittamalla sen tilalle irc.quakenet.org ja napsauta Sulje.
+        li Valitse Quakenet ja napsauta Yhdistä. HexChat yhdistää sinut palvelimeen.
+
+        img(src="/images/irkki_ohje_3.png")
+        li Kirjoita tekstikenttään /j #kazoku ja napsauta enter
+
+        img(src="/images/irkki_ohje_4.png")
+        p Onneksi olkoon ja tervetuloa! Olet päässyt onnistuneesti perille!

@@ -1,9 +1,9 @@
 @import "../../node_modules/bootstrap/less/bootstrap.less";
 
-@body-bg: 				#FFF;
-@text-color:			#eb8f4b;
-@link-color: 			@text-color;
-@link-hover-color:	#e87566;
+@body-bg: #FFF;
+@text-color: #eb8f4b;
+@link-color: @text-color;
+@link-hover-color: #e87566;
 
 @list-group-bg: @text-color;
 @list-group-border: none;
@@ -26,263 +26,270 @@
 
 @grid-gutter-width: 10px;
 
-@fillbgcolor: 		#eb8f4b;
-@filltextcolor: 	#FFF;
-@linkkivari:		#FFF;
-@hoverlinkkivari:	#FFF;
+@fillbgcolor: #eb8f4b;
+@filltextcolor: #FFF;
+@linkkivari: #FFF;
+@hoverlinkkivari: #FFF;
 @taustakuva: "/images/bg.png";
 
 
 .big-hide {
-	.hidden-md();
-	.hidden-lg();
+  .hidden-md();
+  .hidden-lg();
 }
 
 .big-strong {
-	strong {
-		font-size: 16px;
-	}
+  strong {
+    font-size: 16px;
+  }
 }
 
 .content-wrapper {
 
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 
-	@media (min-width: @screen-sm-min) {
-			margin-bottom: 0px;
-	}
+  @media (min-width: @screen-sm-min) {
+      margin-bottom: 0px;
+  }
 
-	&:last-of-type {
-		margin-bottom: 0;
-	}
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .fill-in-textbox {
-	.reverse();
+  .reverse();
 
-	.padding {
-		padding: 10px 15px;
-	}
+  .padding {
+    padding: 10px 15px;
+  }
 
-	li {
-		padding-left: 0;
-		padding-right: 0;
-	}
+  li {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-	footer {
-		margin-top: 20px;
-	}
+  footer {
+    margin-top: 20px;
+  }
 }
 
 .reverse() {
-	background-color: @text-color;
-	color: @body-bg;
+  background-color: @text-color;
+  color: @body-bg;
 
-	a {
-		color: inherit;
+  a {
+    color: inherit;
 
-		&:hover, &:focus {
-			color: inherit;
-		}
-	}
+    &:hover, &:focus {
+      color: inherit;
+    }
+  }
 }
 
 .text-page {
-	border-top: 2px solid @text-color;
-	padding-top: 30px;
-	color: black;
+  border-top: 2px solid @text-color;
+  padding-top: 30px;
+  color: black;
 
-	a {
-		color: darken(@text-color, 25.0);
-	}
+  a {
+    color: darken(@text-color, 25.0);
+  }
 }
 
 body {
-	background: url(@taustakuva) repeat-x;
+  background: url(@taustakuva) repeat-x;
 
-	.container {
-		background: @body-bg;
-		padding: 0 10px;
-	}
+  .container {
+    background: @body-bg;
+    padding: 0 10px;
+  }
 }
 
 header {
-	background-color: @body-bg;
+  background-color: @body-bg;
 
-	.logo-wrapper {
-		float: right;
-		position: relative;
-		right: 85px;
-		width: 520px;
+  .logo-wrapper {
+    float: right;
+    position: relative;
+    right: 85px;
+    width: 520px;
 
-		#logo {
-			max-width: 100%;
-		}
-	}
+    #logo {
+      max-width: 100%;
+    }
+  }
 }
 
 main {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 nav {
-	.mascot-wrapper {
-		.hidden-xs();
-		.hidden-sm();
+  .mascot-wrapper {
+    .hidden-xs();
+    .hidden-sm();
 
-		margin: 10px 0 20px;
+    margin: 10px 0 20px;
 
-		#maskotti {
-			max-width: 100%;
-		}
-	}
+    #maskotti {
+      max-width: 100%;
+    }
+  }
 
-	.navbar-header {
+  .navbar-header {
 
-		ul.nav {
-			margin: 0;
-			padding: 0 40px 0 0;
+    ul.nav {
+      margin: 0;
+      padding: 0 40px 0 0;
 
-			// http://stackoverflow.com/a/1767270/2039863
-			overflow: hidden;
-			width: auto;
-			text-align: center;
+      // http://stackoverflow.com/a/1767270/2039863
+      overflow: hidden;
+      width: auto;
+      text-align: center;
 
-			li {
-				width: 50%;
-				float: left;
+      li {
+        width: 50%;
+        float: left;
 
-				> a {
-					padding: @navbar-link-padding;
+        > a {
+          padding: @navbar-link-padding;
 
-					&:hover, &:focus {
-						padding: @navbar-link-hover-padding;
-					}
-				}
-			}
-		}
-	}
+          &:hover, &:focus {
+            padding: @navbar-link-hover-padding;
+          }
+        }
+      }
+    }
+  }
 
-	.navbar-collapse {
-		@media (min-width: @screen-md-min) {
-			padding: 0;
-		}
+  .navbar-collapse {
+    @media (min-width: @screen-md-min) {
+      padding: 0;
+    }
 
-		background-color: @body-bg;
+    background-color: @body-bg;
 
-	}
+  }
 
-	.nav > li {
-		.reverse();
+  .nav > li {
+    .reverse();
 
-		> a {
-			&:hover, &:focus {
-				padding: @nav-link-hover-padding;
-				color: @nav-link-hover-color;
-				border: @nav-link-hover-border;
-			}
+    > a {
+      &:hover, &:focus {
+        padding: @nav-link-hover-padding;
+        color: @nav-link-hover-color;
+        border: @nav-link-hover-border;
+      }
 
-			.big-strong();
-		}
-	}
-
+      .big-strong();
+    }
+  }
 }
 
 #blogit, #tapahtumat {
 
-	.fill-in-textbox();
-	.fill-in-textbox.padding();
-	height: auto
+  .fill-in-textbox();
+  .fill-in-textbox.padding();
+  height: auto
 }
 
 #blogit {
-	.big-strong();
+  .big-strong();
 }
 
 #contact {
-	.text-page();
+  .text-page();
+}
+
+#irc-help {
+  .text-page();
+
+  img {
+    margin-top: 10px;
+  }
 }
 
 #links {
-	.text-page();
+  .text-page();
 
-	li > a {
-		margin-right: 10px;
-	}
+  li > a {
+    margin-right: 10px;
+  }
 }
 
-#project	{
-	.text-page();
+#project {
+  .text-page();
 
-	.mascot {
-		.img-responsive();
-		.center-block();
+  .mascot {
+    .img-responsive();
+    .center-block();
 
-		& + h1 {
-			margin-top: 0;
-		}
-	}
+    & + h1 {
+      margin-top: 0;
+    }
+  }
 }
 
 #uutiset {
-	padding-top: 5px;
-	margin-bottom: 10px;
+  padding-top: 5px;
+  margin-bottom: 10px;
 
-	.uutisrivi {
-		margin-bottom: 5px;
-	}
+  .uutisrivi {
+    margin-bottom: 5px;
+  }
 
-	.ruutu {
-		.fill-in-textbox();
+  .ruutu {
+    .fill-in-textbox();
 
-		.kuva {
-			height: 150px;
-			background-position: center center;
-			background-size: cover;
-		}
+    .kuva {
+      height: 150px;
+      background-position: center center;
+      background-size: cover;
+    }
 
-		.description {
-			.fill-in-textbox.padding();
+    .description {
+      .fill-in-textbox.padding();
 
-			height: auto;
+      height: auto;
 
-			@media (min-width: @screen-sm-min) {
-				height: 200px;
-			}
+      @media (min-width: @screen-sm-min) {
+        height: 200px;
+      }
 
-			@media (min-width: @screen-lg-min) {
-				height: 175px;
-			}
+      @media (min-width: @screen-lg-min) {
+        height: 175px;
+      }
 
-			.big-strong();
+      .big-strong();
 
-			h1 {
-				font-size: 18px;
-				margin: 0 0 2px;
-			}
+      h1 {
+        font-size: 18px;
+        margin: 0 0 2px;
+      }
 
-			footer {
-				@media (min-width: @screen-sm-min) {
-					position: absolute;
-					bottom: 10px;
-				}
-			}
-		}
-	}
+      footer {
+        @media (min-width: @screen-sm-min) {
+          position: absolute;
+          bottom: 10px;
+        }
+      }
+    }
+  }
 
-	.further {
-		text-align: right;
-		padding: 1px 10px 6px;
-	}
+  .further {
+    text-align: right;
+    padding: 1px 10px 6px;
+  }
 }
 
 #tapahtumat {
 
-	h1 {
-		margin-top: 0px;
-	}
+  h1 {
+    margin-top: 0px;
+  }
 
-	h2 {
-		margin-top: 10px;
-	}
+  h2 {
+    margin-top: 10px;
+  }
 }
