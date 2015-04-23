@@ -87,11 +87,6 @@
 	}
 }
 
-.small-hide {
-	.hidden-xs();
-	.hidden-sm();
-}
-
 body {
 	background: url(@taustakuva) repeat-x;
 
@@ -123,7 +118,8 @@ main {
 
 nav {
 	.mascot-wrapper {
-		.small-hide();
+		.hidden-xs();
+		.hidden-sm();
 
 		margin: 10px 0 20px;
 
@@ -204,7 +200,6 @@ nav {
 		color: darken(@text-color, 25.0);
 	}
 }
-
 
 #uutiset {
 	padding-top: 5px;
