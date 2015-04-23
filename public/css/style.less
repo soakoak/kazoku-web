@@ -32,6 +32,48 @@
 @hoverlinkkivari:	#FFF;
 @taustakuva: "/images/bg.png";
 
+
+.big-hide {
+	.hidden-md();
+	.hidden-lg();
+}
+
+.big-strong {
+	strong {
+		font-size: 16px;
+	}
+}
+
+.content-wrapper {
+
+	margin-bottom: 5px;
+
+	@media (min-width: @screen-sm-min) {
+			margin-bottom: 0px;
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
+.fill-in-textbox {
+	.reverse();
+
+	.padding {
+		padding: 10px 15px;
+	}
+
+	li {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	footer {
+		margin-top: 20px;
+	}
+}
+
 .reverse() {
 	background-color: @text-color;
 	color: @body-bg;
@@ -43,11 +85,6 @@
 			color: inherit;
 		}
 	}
-}
-
-.big-hide {
-	.hidden-md();
-	.hidden-lg();
 }
 
 .small-hide {
@@ -62,6 +99,26 @@ body {
 		background: @body-bg;
 		padding: 0 10px;
 	}
+}
+
+header {
+	height: 230px;
+	background-color: @body-bg;
+
+	.logo-wrapper {
+		float: right;
+		position: relative;
+		right: 85px;
+		width: 520px;
+
+		#logo {
+			max-width: 100%;
+		}
+	}
+}
+
+main {
+	margin-bottom: 20px;
 }
 
 nav {
@@ -126,60 +183,22 @@ nav {
 
 }
 
-header {
-	height: 230px;
-	background-color: @body-bg;
+#blogit, #tapahtumat {
 
-	.logo-wrapper {
-		float: right;
-		position: relative;
-		right: 85px;
-		width: 520px;
-
-		#logo {
-			max-width: 100%;
-		}
-	}
+	.fill-in-textbox();
+	.fill-in-textbox.padding();
+	height: auto
 }
 
-.content-wrapper {
-
-	margin-bottom: 5px;
-
-	@media (min-width: @screen-sm-min) {
-			margin-bottom: 0px;
-	}
-
-	&:last-of-type {
-		margin-bottom: 0;
-	}
+#blogit {
+	.big-strong();
 }
 
-.fill-in-textbox {
-	.reverse();
-
-	.padding {
-		padding: 10px 15px;
+#links {
+	li > a {
+		margin-right: 10px;
+		color: darken(@text-color, 15.0);
 	}
-
-	li {
-		padding-left: 0;
-		padding-right: 0;
-	}
-
-	footer {
-		margin-top: 20px;
-	}
-}
-
-.big-strong {
-	strong {
-		font-size: 16px;
-	}
-}
-
-main {
-	margin-bottom: 20px;
 }
 
 #uutiset {
@@ -231,24 +250,6 @@ main {
 	.further {
 		text-align: right;
 		padding: 1px 10px 6px;
-	}
-}
-
-#blogit, #tapahtumat {
-
-	.fill-in-textbox();
-	.fill-in-textbox.padding();
-	height: auto
-}
-
-#blogit {
-	.big-strong();
-}
-
-#links {
-	li > a {
-		margin-right: 10px;
-		color: darken(@text-color, 15.0);
 	}
 }
 
