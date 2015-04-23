@@ -10,7 +10,7 @@ var index = require('./routes/index');
 var news = require('./routes/news');
 var links = require('./routes/links');
 var project = require('./routes/project')
-// var contact = require('./routes/contact');
+var contact = require('./routes/contact');
 // var ircHelp = require('./routes/ircHelp');
 
 var app = express();
@@ -32,7 +32,7 @@ app.use('/', index);
 app.use('/news', news);
 app.use('/links', links);
 app.use('/project', project);
-// app.use('/yhteys', contact);
+app.use('/contact', contact);
 // app.use('/irc', ircHelp);
 
 // catch 404 and forward to error handler

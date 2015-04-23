@@ -91,6 +91,10 @@
 	border-top: 2px solid @text-color;
 	padding-top: 30px;
 	color: black;
+
+	a {
+		color: darken(@text-color, 25.0);
+	}
 }
 
 body {
@@ -195,12 +199,15 @@ nav {
 	.big-strong();
 }
 
+#contact {
+	.text-page();
+}
+
 #links {
 	.text-page();
 
 	li > a {
 		margin-right: 10px;
-		color: darken(@text-color, 25.0);
 	}
 }
 
