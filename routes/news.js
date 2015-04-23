@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var Intl = require('intl');
 var Promise = require('bluebird');
 var router = express.Router();
 
