@@ -157,7 +157,9 @@ function updateNews (callback) {
       var lastUpdate = getLastUpdate();
       var getAnimelehtiNews = Promise.promisify(new AnimelehtiRss().makeRequest);
 
-      return getAnimelehtiNews().filter(function filterOld(entry) {
+      return lastUpdate.then(function() {
+         return getAnimelehtiNews();
+      }).filter(function filterOld(entry) {
          return entry.pubDate > lastUpdate.value();
       });
    }
