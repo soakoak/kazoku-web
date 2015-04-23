@@ -107,7 +107,7 @@ nav {
 		}
 
 		background-color: @body-bg;
-	
+
 	}
 
 	.nav > li {
@@ -127,14 +127,14 @@ nav {
 }
 
 header {
-	height: 230px; 
+	height: 230px;
 	background-color: @body-bg;
 
 	.logo-wrapper {
-		float: right; 
-		position: relative; 
-		right: 85px; 
-		width: 520px; 
+		float: right;
+		position: relative;
+		right: 85px;
+		width: 520px;
 
 		#logo {
 			max-width: 100%;
@@ -147,7 +147,7 @@ header {
 	margin-bottom: 5px;
 
 	@media (min-width: @screen-sm-min) {
-			margin-bottom: 0px; 
+			margin-bottom: 0px;
 	}
 
 	&:last-of-type {
@@ -194,8 +194,8 @@ main {
 		.fill-in-textbox();
 
 		.kuva {
-			height: 150px; 
-			background-position: center center; 
+			height: 150px;
+			background-position: center center;
 			background-size: cover;
 		}
 
@@ -205,17 +205,17 @@ main {
 			height: auto;
 
 			@media (min-width: @screen-sm-min) {
-				height: 200px; 
+				height: 200px;
 			}
 
 			@media (min-width: @screen-lg-min) {
-				height: 175px; 
+				height: 175px;
 			}
 
 			.big-strong();
 
 			h1 {
-				font-size: 18px; 
+				font-size: 18px;
 				margin: 0 0 2px;
 			}
 
@@ -243,6 +243,13 @@ main {
 
 #blogit {
 	.big-strong();
+}
+
+#links {
+	li > a {
+		margin-right: 10px;
+		color: darken(@text-color, 15.0);
+	}
 }
 
 #tapahtumat {

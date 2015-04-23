@@ -16,13 +16,13 @@ html
 
     // JQuery
     script(type="text/javascript", src="http://code.jquery.com/jquery-latest.min.js")
-    
+
     // Icons
     link(rel="stylesheet", href = "http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
 
     meta(name="msapplication-TileColor", content="#603cba")
     meta(name="msapplication-TileImage", content="/icons/mstile-144x144.png")
-    
+
     mixin apple_favicon(width)
       - var size = width + "x" + width;
       - var uri = "/icons/apple-touch-icon-" + size + ".png";
@@ -80,7 +80,7 @@ html
                   +nav_item("#", "Foorumi", true)(class="small-hide")
                   +nav_item("#", "Kazoku-projektista")
 
-                  +nav_item("#", "Linkit")
+                  +nav_item("/links", "Linkit")
                   +nav_item("/news", "Uutiset")
                   +nav_item("#", "Blogit")
                   +nav_item("#", "Tapahtumat & miitit")
@@ -91,6 +91,6 @@ html
               header
                 a(href="/")
                   img(src="/images/uusilogo.png", id="logo").img-responsive.center-block
-        
+
             main
               block content
