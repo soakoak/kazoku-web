@@ -14,20 +14,20 @@ block content
                 br
                 =summary
                 br
-                | Julkaistu 
+                | Julkaistu
                 =pubDate
                 br
                 footer
                   a(href=link) Lue osoitteessa animelehti.fi
 
         each n in news
-            +news_window(n.link, n.imageName, n.title, 
+            +news_window(n.link, n.imageName, n.title,
           DateFormat.format(n.pubDate), n.summary)
 
       .row.further
         .col-xs-12
           strong
-            a(href="/news") Lisää uutisia
+            a(href="/news/") Lisää uutisia
 
   .row
 
@@ -39,16 +39,16 @@ block content
           mixin blogMsg(blogUri, blogName, link, title, pubDate)
             li.list-group-item
               strong
-                a(href= link) 
+                a(href= link)
                   !=title
               br
-              | Blogissa 
+              | Blogissa
               a(href=blogUri)
                 =blogName
               =" " + DateFormat.format(pubDate) + " klo " + TimeFormat.format(pubDate)
 
           for msg in blogMsgs
-            +blogMsg(msg.blog.uri, msg.blog.name, msg.link, 
+            +blogMsg(msg.blog.uri, msg.blog.name, msg.link,
               msg.title, msg.pubDate)
 
         footer
@@ -63,7 +63,7 @@ block content
           h2= title
           strong= where
           br
-          strong Kazoku-miitti: 
+          strong Kazoku-miitti:
           = detailedWhere
           if description
             p= description
@@ -72,12 +72,12 @@ block content
           a(href=officialPage) Virallinen sivusto
 
         h1 Seuraava miitti
-        +event("Desucon 2015", "5.-7.6.2015", 
-          "Tarkempi ajankohta selviää lähempänä tapahtumaa", 
+        +event("Desucon 2015", "5.-7.6.2015",
+          "Tarkempi ajankohta selviää lähempänä tapahtumaa",
           false, "https://desucon.fi/frostbite2015/")
 
-        footer 
-          strong 
+        footer
+          strong
             a(href="/") Ilmoittaudu
           br
           a(href="/") Myöhemmät miitit
