@@ -9,7 +9,7 @@ var lessMiddleware = require('less-middleware');
 var index = require('./routes/index');
 var news = require('./routes/news');
 var links = require('./routes/links');
-// var project = require('./routes/project')
+var project = require('./routes/project')
 // var contact = require('./routes/contact');
 // var ircHelp = require('./routes/ircHelp');
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')
 app.use('/', index);
 app.use('/news', news);
 app.use('/links', links);
-// app.use('/projekti', project);
+app.use('/project', project);
 // app.use('/yhteys', contact);
 // app.use('/irc', ircHelp);
 
