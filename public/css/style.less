@@ -24,6 +24,9 @@
 @nav-link-hover-color: @link-hover-color;
 @nav-link-hover-padding: 9px 15px;
 
+@panel-default-border: @text-color;
+@panel-default-heading-bg: @text-color;
+
 @grid-gutter-width: 10px;
 
 @fillbgcolor: #eb8f4b;
@@ -196,6 +199,23 @@ nav {
 
 #blogit {
   .big-strong();
+}
+
+#casts {
+  .text-page();
+
+  #accordion {
+    .panel-heading a {
+      color: @body-bg;
+    }
+
+    .panel-body {
+
+      audio {
+        visibility: visible !important;
+      }
+    }
+  }
 }
 
 #contact {

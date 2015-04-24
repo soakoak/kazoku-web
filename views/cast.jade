@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  #casts.row
+    .col-xs-12
+      p Tilaa podcast:
+        a(href="http://wordpress.redirectingat.com/?id=725X584219&site=kazokucast.wordpress.com&xs=1&isjs=1&url=https%3A%2F%2Fitunes.apple.com%2Ffi%2Fpodcast%2Fkazokucast%2Fid830482976%3Fl%3Dfi%26mt%3D2&xguid=70a98137b7b81ce57e624465e7263bc8&xcreo=0&xed=0&sref=http%3A%2F%2Fkazokucast.wordpress.com%2F&xtz=-180&abp=1")
+          =" iTunes"
+        =" ,"
+        a(href="http://feeds.feedburner.com/Kazokucast") RSS
+
+      #accordion.panel-group
+        mixin cast(counter, title, date, content)
+          - var collapseStr = "collapse" + counter;
+          - var julkaisuStr = "Julkaistu " + date;
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle="collapse", data-parent="#accordion", href="#" + collapseStr)
+                  = title
+            .panel-collapse.collapse(id=collapseStr, class={ in: counter==0 })
+              .panel-body
+                h1= title
+                strong= julkaisuStr
+                !=content
+
+        - var counter = 0;
+        for c in casts
+          +cast(counter++, c.title, DateFormat.format(c.pubDate), c.content)

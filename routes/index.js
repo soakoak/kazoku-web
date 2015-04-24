@@ -31,7 +31,7 @@ function updateNews () {
 
 function updateBlogs() {
 
-   var options = { 
+   var options = {
       where: {
          id: { $ne: 4 }
       }
@@ -71,10 +71,10 @@ function updateBlogs() {
          });
       }
 
-      getNewEntries(blog).each(function (message) { 
+      getNewEntries(blog).each(function (message) {
          message.save();
       }).then(function (messages) {
-         console.log("Saved " + messages.length 
+         console.log("Saved " + messages.length
             + " new entries for blog " + blog.nimi);
       }).catch(function (e) {
          console.log("Error while entering new entries for blog " + blog.nimi);
@@ -86,13 +86,13 @@ function updateBlogs() {
 
    function refreshBlogList() {
 
-      var options = { 
+      var options = {
             attributes: ['title', 'link', 'pubDate', 'blogid'],
-            order: "pubDate DESC", 
-            limit: MAX_BLOG_MSG_COUNT 
+            order: "pubDate DESC",
+            limit: MAX_BLOG_MSG_COUNT
       };
       var tempBlogMsgs = new Array();
-      
+
       models.BlogMsg.findAll(options).each(function (msg) {
          function Message() {
          }
@@ -134,9 +134,9 @@ updateCasts();
 setInterval(updateCasts, UPDATE_INTERVAL);
 
 router.get('/', function(req, res) {
-   res.render('index', 
+   res.render('index',
       {
-         title: 'Kazoku', 
+         title: 'Kazoku',
          news: news,
          blogMsgs: blogMsgs,
          DateFormat: new Intl.DateTimeFormat('fi-FI'),
