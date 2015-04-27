@@ -18,7 +18,7 @@ updateNews();
 setInterval(updateNews, UPDATE_INTERVAL);
 
 router.get('/', function(req, res) {
-   res.render('news', { 
+   res.render('news', {
       DateFormat: new Intl.DateTimeFormat('fi-FI'),
       news: news,
       title: 'Kazoku'
