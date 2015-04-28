@@ -58,6 +58,20 @@
   &:last-of-type {
     margin-bottom: 0;
   }
+
+  > #blogit, #tapahtumat {
+    .fill-in-textbox();
+    .fill-in-textbox.padding();
+    height: auto
+  }
+
+  > #blogit {
+    .big-strong();
+
+    .list-group-item {
+      background-color: @list-group-bg;
+    }
+  }
 }
 
 .fill-in-textbox {
@@ -98,6 +112,7 @@
   a {
     color: darken(@text-color, 25.0);
   }
+
 }
 
 body {
@@ -190,15 +205,13 @@ nav {
   }
 }
 
-#blogit, #tapahtumat {
-
-  .fill-in-textbox();
-  .fill-in-textbox.padding();
-  height: auto
-}
 
 #blogit {
-  .big-strong();
+  .text-page();
+
+  .list-group-item {
+    background-color: #FFF;
+  }
 }
 
 #casts {
