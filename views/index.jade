@@ -4,21 +4,7 @@ block content
   #uutiset.row
     .col-xs-12
       .row
-        mixin news_window(link, imageName, title, pubDate, summary)
-          .col-xs-12.col-sm-4.content-wrapper
-            .ruutu
-              a(href=link)
-                .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
-              .description
-                strong= title
-                br
-                =summary
-                br
-                | Julkaistu
-                =pubDate
-                br
-                footer
-                  a(href=link) Lue osoitteessa animelehti.fi
+        include ./mixins/news_window.jade
 
         each n in news
             +news_window(n.link, n.imageName, n.title,
@@ -36,20 +22,13 @@ block content
 
         ul.list-group
 
-          mixin blogMsg(blogUri, blogName, link, title, pubDate)
-            li.list-group-item
-              strong
-                a(href= link)
-                  !=title
-              br
-              | Blogissa
-              a(href=blogUri)
-                =blogName
-              =" " + DateFormat.format(pubDate) + " klo " + TimeFormat.format(pubDate)
+          include ./mixins/blog_post.jade
 
           for msg in blogMsgs
-            +blogMsg(msg.blog.uri, msg.blog.name, msg.link,
-              msg.title, msg.pubDate)
+            - var date = DateFormat.format(msg.pubDate);
+            - var time = TimeFormat.format(msg.pubDate);
+            +blog_post(msg.blog.uri, msg.blog.name, msg.link,
+              msg.title, date, time)
 
         footer
           strong
