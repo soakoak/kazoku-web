@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  #blogit.row
+    .col-xs-12.content-wrapper
+
+      ul.list-group
+
+        include ./mixins/blog_post.jade
+
+        for msg in blogMsgs
+          - var date = DateFormat.format(msg.pubDate);
+          - var time = TimeFormat.format(msg.pubDate);
+          +blog_post(msg.blog.uri, msg.blog.name, msg.link,
+            msg.title, date, time)
