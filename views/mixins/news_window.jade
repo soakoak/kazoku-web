@@ -4,12 +4,12 @@ mixin news_window(link, imageName, title, pubDate, summary)
       a(href=link)
         .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
       .description
-        strong= title
+        strong
+          =title
         br
         =summary
         br
-        | Julkaistu
-        =pubDate
+        ="Julkaistu " + pubDate
         br
         footer
           a(href=link) Lue osoitteessa animelehti.fi
