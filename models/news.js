@@ -7,7 +7,7 @@ module.exports = function(sequelize, Datatypes) {
       id: {
          type: Datatypes.BIGINT(20),
          primaryKey: true,
-         autoIncrement: true 
+         autoIncrement: true
       },
 
       source: {
@@ -17,7 +17,7 @@ module.exports = function(sequelize, Datatypes) {
       },
 
       link: {
-         type: Datatypes.STRING, allowNull: false, unique: "linkTitle"
+         type: Datatypes.STRING(127), allowNull: false, unique: "linkTitle"
       },
 
       imageName: {
@@ -25,7 +25,7 @@ module.exports = function(sequelize, Datatypes) {
       },
 
       title: {
-         type: Datatypes.STRING, allowNull: false, unique: "linkTitle"
+         type: Datatypes.STRING(31), allowNull: false, unique: "linkTitle"
       },
 
       pubDate: {
