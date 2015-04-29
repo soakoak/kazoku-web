@@ -1,0 +1,9 @@
+Jos ääkköset ja muut utf-8 symbolit eivät välity tietokantaan, referoi dokumentissa olevaa linkkiä. Yleensä hommat toimivat kunhan asettaa sarakkeen charsetin oikein utf8mb4:ksi, vaikka joskus on tarpeen myös muokata clientin.
+
+Sarakkeen charset:
+ALTER TABLE <taulunnimi> MODIFY <nimi ja sen olemassa olevat määritykset> CHARACTER SET utf8mb4;
+https://mathiasbynens.be/notes/mysql-utf8mb4
+
+Clientin charset:
+SET character_set_client = utf8mb4;
+http://dev.mysql.com/doc/refman/5.6/en/charset-connection.html
