@@ -2,7 +2,7 @@
 
 var express = require('express');
 var Intl = require('intl');
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 var router = express.Router();
 
 var libs = '../libs/';
@@ -16,7 +16,7 @@ module.exports = router;
 
 function update() {
 
-   var getBlogPosts = Promise.promisify(Handler.getBlogPosts);
+   var getBlogPosts = BPromise.promisify(Handler.getBlogPosts);
    getBlogPosts(MAX_POST_COUNT).then(function whenDone(items) {
       blogPosts = items;
    });

@@ -3,9 +3,7 @@
 var FeedParserFactory = require('./FeedParserFactory');
 var PipedRequest = require('./PipedRequest');
 
-module.exports = BlogRss;
-
-function BlogRss (blog) {
+module.exports = function BlogRss(blog) {
 
    var self = this;
 
@@ -14,13 +12,11 @@ function BlogRss (blog) {
 
    this.makeRequest = function (callback) {
 
-      callback = (typeof callback === 'function') 
-            ? callback 
-            : noCallback;
-
-      function noCallback(error, results) { 
+      function noCallback(error, results) {
          console.log('No callback function was provided.');
-      };
+      }
+
+      callback = callback || noCallback;
 
       function onEnd(error, results) {
          self.lastResults = results;
@@ -31,5 +27,5 @@ function BlogRss (blog) {
       var pipedRequest = new PipedRequest(self.targetUri, feedparser);
 
       pipedRequest.pipe();
-   }
-}
+   };
+};

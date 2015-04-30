@@ -2,7 +2,7 @@
 
 var express = require('express');
 var Intl = require('intl');
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 var router = express.Router();
 
 var libs = '../libs/';
@@ -15,7 +15,7 @@ var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 module.exports = router;
 
 function updateNews() {
-   var getNews = Promise.promisify(NewsHandler.getNews);
+   var getNews = BPromise.promisify(NewsHandler.getNews);
    getNews(MAX_NEWS_COUNT).then(function whenDone(newsItems) {
       news = newsItems;
    });

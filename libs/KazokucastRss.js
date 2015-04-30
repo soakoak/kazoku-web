@@ -8,19 +8,17 @@ module.exports = KazokucastRss;
 function KazokucastRss () {
 
    var self = this;
-   
-   this.targetUri = "http://feeds.feedburner.com/Kazokucast?format=xml";
+
+   this.targetUri = 'http://feeds.feedburner.com/Kazokucast?format=xml';
    this.lastResult = [];
 
    this.makeRequest = function (callback) {
 
-      callback = (typeof callback === 'function') 
-            ? callback 
-            : noCallback;
+      callback = callback || noCallback;
 
-      function noCallback(error, results) { 
+      function noCallback(error, results) {
          console.log('No callback function was provided.');
-      };
+      }
 
       function onEnd(error, results) {
          self.lastResults = results;
@@ -31,5 +29,5 @@ function KazokucastRss () {
       var pipedRequest = new PipedRequest(self.targetUri, feedparser);
 
       pipedRequest.pipe();
-   }
+   };
 }

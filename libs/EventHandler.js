@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 var path = require('path');
 
 var Event = require(path.join(__dirname, '..', 'models')).Event;
@@ -31,7 +31,7 @@ function noCallback(error, results) {
 }
 
 function updateCache(callback) {
-   var fetch = Promise.promisify(fetchEvents);
+   var fetch = BPromise.promisify(fetchEvents);
    fetch(CACHE_SIZE).then(function afterFetch(fetchedItems) {
       cache = fetchedItems;
       callback(null, fetchedItems);
@@ -45,11 +45,9 @@ module.exports = {
       var amount = options.amount || CACHE_SIZE;
       // var lastDate = options.date || false; //TODO käytä suodatuksessa
 
-      callback = (typeof callback === 'function')
-         ? callback
-         : noCallback;
+      callback = callback || noCallback;
 
-      var update = Promise.promisify(module.exports.update);
+      var update = BPromise.promisify(module.exports.update);
       update().then(function afterUpdate(result) {
 
          callback(null, module.exports.getCache().slice(0, amount));
@@ -68,9 +66,7 @@ module.exports = {
 
       var now = new Date();
 
-      callback = (typeof callback === 'function')
-            ? callback
-            : noCallback;
+      callback = callback || noCallback;
 
       function updateIsNeeded(now, lastUpdate, updateInterval) {
          var timeFromLastUpdate = now - lastUpdate;
@@ -94,7 +90,7 @@ module.exports = {
             console.log('Updating events at ' + now.toLocaleString() + '.');
             updating = true;
 
-            var pUpdateCache = Promise.promisify(updateCache);
+            var pUpdateCache = BPromise.promisify(updateCache);
             pUpdateCache().then(function lastly(result) {
                if (result === true) {
                   console.log('Succesfully updated event cache.');

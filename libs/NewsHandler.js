@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 var path = require('path');
 
 var AnimelehtiRss = require('./AnimelehtiRss');
@@ -18,11 +18,9 @@ module.exports = {
    getNews: function getNews(amount, callback) {
 
       amount = amount || 0;
-      callback = (typeof callback === 'function') 
-         ? callback 
-         : noCallback;
+      callback = callback || noCallback;
 
-      var updateNews = Promise.promisify(module.exports.updateNews);
+      var updateNews = BPromise.promisify(module.exports.updateNews);
       updateNews().then(function afterUpdate(result) {
 
          callback(null, module.exports.getNewsCache().slice(0, amount));
@@ -41,9 +39,7 @@ module.exports = {
 
       var now = new Date();
 
-      callback = (typeof callback === 'function') 
-            ? callback 
-            : noCallback;
+      callback = callback || noCallback;
 
       function updateIsNeeded(now, lastUpdate, updateInterval) {
          var timeFromLastUpdate = now - lastUpdate;
@@ -65,23 +61,23 @@ module.exports = {
          if(!updating) {
             console.log('Updating news at ' + now.toLocaleString() + '.');
             updating = true;
-            var pUpdateNews = Promise.promisify(updateNews);
+            var pUpdateNews = BPromise.promisify(updateNews);
 
             pUpdateNews().then(function afterUpdate(newNews) {
-               return new Promise(function (resolve, reject) {
+               return new BPromise(function (resolve, reject) {
 
-                  if( newsCache.length == 0 || newNews.length > 0) {
-                     var update = Promise.promisify(updateCache);
+                  if( newsCache.length === 0 || newNews.length > 0) {
+                     var update = BPromise.promisify(updateCache);
                      update().then(function afterCacheUpdate(fetchedNews) {
                         resolve(true);
                      });
                   } else {
                      resolve(false);
-                  } 
+                  }
                });
 
             }).then(function lastly(result){
-               if(result == true) {
+               if(result === true) {
                   console.log('Succesfully updated cache.');
                } else {
                   console.log('There was no need to update cache.');
@@ -94,9 +90,9 @@ module.exports = {
             });
          } else {
             waitForUpdateToBeDone(1000, callback);
-            
+
          }
-         
+
       } else {
          console.log('No update was done at ' + now.toLocaleString() + '.');
          if(callback) {
@@ -104,11 +100,11 @@ module.exports = {
          }
       }
    }
-}
+};
 
 function fetchNews(newsCount, callback) {
-   var options = { 
-      order: "pubDate DESC", 
+   var options = {
+      order: 'pubDate DESC',
       limit: newsCount
    };
 
@@ -117,12 +113,12 @@ function fetchNews(newsCount, callback) {
    });
 }
 
-function noCallback(error, results) { 
+function noCallback(error, results) {
    console.log('No callback function was provided.');
-};
+}
 
 function updateCache(callback) {
-   var fetch = Promise.promisify(fetchNews);
+   var fetch = BPromise.promisify(fetchNews);
    fetch(CACHED_NEWS_COUNT).then(function afterFetch(fetchedNews){
       newsCache = fetchedNews;
       callback(null, fetchedNews);
@@ -132,19 +128,19 @@ function updateCache(callback) {
 function updateNews (callback) {
 
    function getNewEntries() {
-   
+
       function getLastUpdate() {
-         return new Promise(function (resolve, reject) {
+         return new BPromise(function (resolve, reject) {
 
             var options = {
-               order: "pubDate DESC",
+               order: 'pubDate DESC',
                limit: 1
             };
 
             News.findAll(options).then(function afterGettingLatest(newsItems) {
                var lastUpdate;
                // In case there are no news in database with pubDate set
-               if( newsItems.length == 0) {
+               if( newsItems.length === 0) {
                   lastUpdate = new Date(0);
                } else {
                   lastUpdate = newsItems[0].pubDate;
@@ -155,7 +151,7 @@ function updateNews (callback) {
       }
 
       var lastUpdate = getLastUpdate();
-      var getAnimelehtiNews = Promise.promisify(new AnimelehtiRss().makeRequest);
+      var getAnimelehtiNews = BPromise.promisify(new AnimelehtiRss().makeRequest);
 
       return lastUpdate.then(function() {
          return getAnimelehtiNews();
@@ -167,17 +163,16 @@ function updateNews (callback) {
    getNewEntries().each(function (newsItem) {
       newsItem.save().catch(function (e) {
          console.log(
-            "Error while inserting news titled " 
-               + newsItem.title 
-               + ", possible dublicate"
+            'Error while inserting news titled ' +
+               newsItem.title + ', possible dublicate'
          );
       });
    }).then(function (newNewsItems) {
-      console.log("Inserted " + newNewsItems.length + " new news at " 
-            + new Date().toLocaleString());
+      console.log('Inserted ' + newNewsItems.length +
+         ' new news at ' + new Date().toLocaleString());
       callback(null, newNewsItems);
    }).catch(function (e) {
-      console.log("Error while saving news : " + e);
+      console.log('Error while saving news : ' + e);
       callback(e);
    });
 }

@@ -2,8 +2,7 @@
 
 var express = require('express');
 var Intl = require('intl');
-var path = require('path');
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 
 var libs = '../libs/';
 var NewsHandler = require(libs + 'NewsHandler');
@@ -21,14 +20,14 @@ var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 module.exports = router;
 
 function updateNews() {
-   var getNews = Promise.promisify(NewsHandler.getNews);
+   var getNews = BPromise.promisify(NewsHandler.getNews);
    getNews(MAX_NEWS_COUNT).then(function whenDone(newsItems) {
       news = newsItems;
    });
 }
 
 function updateBlogs() {
-   var getBlogPosts = Promise.promisify(BlogHandler.getBlogPosts);
+   var getBlogPosts = BPromise.promisify(BlogHandler.getBlogPosts);
    getBlogPosts(MAX_BLOG_MSG_COUNT).then(function whenDone(items) {
       blogMsgs = items;
    });
@@ -39,7 +38,7 @@ function updateEvents() {
       amount: 1
    };
 
-   var getEvents = Promise.promisify(EventHandler.getEvents);
+   var getEvents = BPromise.promisify(EventHandler.getEvents);
    getEvents(options).then(function whenDone(items) {
       events = items;
    });

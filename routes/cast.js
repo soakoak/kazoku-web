@@ -2,7 +2,7 @@
 
 var express = require('express');
 var Intl = require('intl');
-var Promise = require('bluebird');
+var BPromise = require('bluebird');
 var router = express.Router();
 
 var libs = '../libs/';
@@ -15,11 +15,11 @@ module.exports = router;
 
 
 function updateCasts() {
-   var getCasts = Promise.promisify(new CastRss().makeRequest);
+   var getCasts = BPromise.promisify(new CastRss().makeRequest);
 
    getCasts().then(function (newCasts) {
       casts = newCasts;
-      console.log("Casts updated " + new Date().toLocaleString());
+      console.log('Casts updated ' + new Date().toLocaleString());
    });
 }
 

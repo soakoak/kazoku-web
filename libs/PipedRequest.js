@@ -14,10 +14,10 @@ module.exports = function PipedRequest(uri, pipeTarget) {
       stream.on('response', function onResponse(res) {
          res.pipe(self.pipeTarget);
       });
-   }
+   };
 
    function handleError(err) {
       console.log(err, err.stack);
       return process.exit(1);
    }
-}
+};

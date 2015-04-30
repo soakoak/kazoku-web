@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = function (sequelize, Datatypes) {
 
-   var News = sequelize.define("News", {
+   var News = sequelize.define('News', {
 
       id: {
          type: Datatypes.BIGINT(20),
@@ -19,7 +19,7 @@ module.exports = function (sequelize, Datatypes) {
       link: {
          type: Datatypes.STRING(127),
          allowNull: false,
-         unique: "linkTitle"
+         unique: 'linkTitle'
       },
 
       imageName: {
@@ -30,7 +30,7 @@ module.exports = function (sequelize, Datatypes) {
       title: {
          type: Datatypes.STRING(31),
          allowNull: false,
-         unique: "linkTitle"
+         unique: 'linkTitle'
       },
 
       pubDate: {

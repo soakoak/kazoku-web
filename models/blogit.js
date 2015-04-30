@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = function (sequelize, Datatypes) {
 
-   var Blog = sequelize.define("Blog", {
+   var Blog = sequelize.define('Blog', {
 
       id: {
          type: Datatypes.BIGINT(20),
