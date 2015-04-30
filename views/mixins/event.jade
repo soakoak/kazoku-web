@@ -1,0 +1,14 @@
+mixin event(title, date, location, meetupLocation, description, eventWebpage)
+  h2= title
+  strong
+    =date
+    if location
+      =", " + location
+  br
+  strong="Kazoku-miitti: "
+  = meetupLocation
+  if description
+    p= description
+  else
+    br
+  a(href=eventWebpage) Virallinen sivusto

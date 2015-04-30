@@ -38,22 +38,15 @@ block content
     .col-xs-12.col-sm-4.content-wrapper
       #tapahtumat
 
-        mixin event(title, where, detailedWhere, description, officialPage)
-          h2= title
-          strong= where
-          br
-          strong Kazoku-miitti:
-          = detailedWhere
-          if description
-            p= description
-          else
-            br
-          a(href=officialPage) Virallinen sivusto
+        include ./mixins/event.jade
 
         h1 Seuraava miitti
-        +event("Desucon 2015", "5.-7.6.2015",
-          "Tarkempi ajankohta selviää lähempänä tapahtumaa",
-          false, "https://desucon.fi/frostbite2015/")
+
+        for e in events
+          - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
+
+          +event(e.title, date, e.location,
+            e.meetupLocation, e.description, e.eventWebpage)
 
         footer
           strong
