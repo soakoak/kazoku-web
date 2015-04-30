@@ -3,23 +3,32 @@
 module.exports = function (sequelize, Datatypes) {
 
    var Blog = sequelize.define("Blog", {
-      id: { 
-         type: Datatypes.BIGINT(20), 
-         primaryKey: true, 
-         autoIncrement: true },
+
+      id: {
+         type: Datatypes.BIGINT(20),
+         primaryKey: true,
+         autoIncrement: true
+      },
+
       etusivu: {
          type: Datatypes.STRING(512),
-         allowNull: false },
+         allowNull: false
+      },
+
       nimi: {
          type: Datatypes.STRING(512),
-         allowNull: false },
+         allowNull: false
+      },
+
       rss: {
          type: Datatypes.STRING(512),
-         allowNull: false }
+         allowNull: false
+      }
+
    }, {
       tableName: 'blogit',
       timestamps: false
    });
 
    return Blog;
-}
+};

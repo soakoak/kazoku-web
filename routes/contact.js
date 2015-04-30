@@ -5,6 +5,6 @@ var router = express.Router();
 
 module.exports = router;
 
-router.get('/', function(req, res) {
-  res.render('contact', { title: 'Kazoku' });
+router.get('/', function (req, res) {
+   res.render('contact', { title: 'Kazoku' });
 });

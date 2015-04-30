@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function createEvent (sequelize, Datatypes) {
+module.exports = function createEvent(sequelize, Datatypes) {
 
    var Event = sequelize.define('Event', {
 
@@ -46,15 +46,15 @@ module.exports = function createEvent (sequelize, Datatypes) {
       tableName: 'events',
 
       hooks: {
-         beforeCreate: function(event, options, callback) {
-            if(!event.meetupLocation) {
+         beforeCreate: function (event, options, callback) {
+            if (!event.meetupLocation) {
                event.meetupLocation = 'Tarkempi ajankohta selviää lähempänä tapahtumaa';
             }
 
-            callback(null, event)
+            callback(null, event);
          }
       }
    });
 
    return Event;
-}
+};

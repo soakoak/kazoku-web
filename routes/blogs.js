@@ -14,21 +14,6 @@ var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 
 module.exports = router;
 
-update();
-setInterval(update, UPDATE_INTERVAL);
-
-router.get('/', function(req, res) {
-   res.render('blogs', {
-      DateFormat: new Intl.DateTimeFormat('fi-FI'),
-      blogMsgs: blogPosts,
-      TimeFormat: new Intl.DateTimeFormat('fi-Fi',
-         {
-            hour: 'numeric', minute: 'numeric'
-         }),
-      title: 'Kazoku'
-   });
-});
-
 function update() {
 
    var getBlogPosts = Promise.promisify(Handler.getBlogPosts);
@@ -36,3 +21,19 @@ function update() {
       blogPosts = items;
    });
 }
+
+update();
+setInterval(update, UPDATE_INTERVAL);
+
+router.get('/', function (req, res) {
+   res.render('blogs', {
+      DateFormat: new Intl.DateTimeFormat('fi-FI'),
+      blogMsgs: blogPosts,
+      TimeFormat: new Intl.DateTimeFormat('fi-Fi',
+         {
+            hour: 'numeric',
+            minute: 'numeric'
+         }),
+      title: 'Kazoku'
+   });
+});

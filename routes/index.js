@@ -18,7 +18,7 @@ var UPDATE_INTERVAL = 60 * 60 * 1000; // Päivitystahti millisekunteina.
 
 module.exports = router;
 
-function updateNews () {
+function updateNews() {
    var getNews = Promise.promisify(NewsHandler.getNews);
    getNews(MAX_NEWS_COUNT).then(function whenDone(newsItems) {
       news = newsItems;
@@ -38,7 +38,7 @@ setInterval(updateNews, UPDATE_INTERVAL);
 updateBlogs();
 setInterval(updateBlogs, UPDATE_INTERVAL);
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
    res.render('index',
       {
          title: 'Kazoku',
@@ -47,7 +47,8 @@ router.get('/', function(req, res) {
          DateFormat: new Intl.DateTimeFormat('fi-FI'),
          TimeFormat: new Intl.DateTimeFormat('fi-Fi',
             {
-               hour: 'numeric', minute: 'numeric'
+               hour: 'numeric',
+               minute: 'numeric'
             })
       });
 });

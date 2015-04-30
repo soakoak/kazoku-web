@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function(sequelize, Datatypes) {
+module.exports = function (sequelize, Datatypes) {
 
    var News = sequelize.define("News", {
 
@@ -17,19 +17,25 @@ module.exports = function(sequelize, Datatypes) {
       },
 
       link: {
-         type: Datatypes.STRING(127), allowNull: false, unique: "linkTitle"
+         type: Datatypes.STRING(127),
+         allowNull: false,
+         unique: "linkTitle"
       },
 
       imageName: {
-         type: Datatypes.STRING, allowNull: false
+         type: Datatypes.STRING,
+         allowNull: false
       },
 
       title: {
-         type: Datatypes.STRING(31), allowNull: false, unique: "linkTitle"
+         type: Datatypes.STRING(31),
+         allowNull: false,
+         unique: "linkTitle"
       },
 
       pubDate: {
-         type: Datatypes.DATE, allowNull: false
+         type: Datatypes.DATE,
+         allowNull: false
       },
 
       summary: {
@@ -40,4 +46,4 @@ module.exports = function(sequelize, Datatypes) {
    });
 
    return News;
-}
+};
