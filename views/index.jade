@@ -42,14 +42,12 @@ block content
 
         h1 Seuraava miitti
 
-        for e in events
-          - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
+        - var e = events[0];
+        - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
 
-          +event(e.title, date, e.location,
-            e.meetupLocation, e.description, e.eventWebpage)
+        +event(e.title, date, e.location,
+          e.meetupLocation, e.description, e.eventWebpage, true)
 
-        footer
+        .more
           strong
-            a(href="/") Ilmoittaudu
-          br
-          a(href="/events/") Myöhemmät miitit
+            a(href="/events/") Muut miitit

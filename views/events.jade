@@ -8,12 +8,16 @@ block content
 
       h1 Seuraava miitti
 
-      for e in events
+      - var e = events[0];
+      - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
+
+      +event(e.title, date, e.location,
+        e.meetupLocation, e.description, e.eventWebpage, true)
+
+      h2 Menneet miitit
+
+      for e in events.slice(1, events.length)
         - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
 
         +event(e.title, date, e.location,
           e.meetupLocation, e.description, e.eventWebpage)
-
-      footer
-        strong
-          a(href="/") Ilmoittaudu
