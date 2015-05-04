@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  #events.row
+    .col-xs-12
+
+      include ./mixins/event.jade
+
+      h1 Seuraava miitti
+
+      for e in events
+        - var date = e.startDate.getDate() + '.–' + DateFormat.format(e.endDate);
+
+        +event(e.title, date, e.location,
+          e.meetupLocation, e.description, e.eventWebpage)
+
+      footer
+        strong
+          a(href="/") Ilmoittaudu

@@ -16,6 +16,7 @@ var contact = require('./routes/contact');
 var ircHelp = require('./routes/ircHelp');
 var cast = require('./routes/cast');
 var blogs = require('./routes/blogs');
+var events = require('./routes/events');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/contact', contact);
 app.use('/irc-help', ircHelp);
 app.use('/cast', cast);
 app.use('/blogs', blogs);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
