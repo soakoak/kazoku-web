@@ -1,15 +1,14 @@
 mixin news_window(link, imageName, title, pubDate, summary)
-  .col-xs-12.col-sm-4.content-wrapper
-    .ruutu
-      a(href=link)
-        .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
-      .description
-        strong
-          =title
-        br
+  .news_window
+    a(href=link)
+      .kuva(style="background-image: url(/images/uutiskuvat/" + imageName + ".jpg)")
+    .description
+      h3
+        =title
+      p.summary
         =summary
-        br
+      p.publish_date
         ="Julkaistu " + pubDate
-        br
-        footer
-          a(href=link) Lue osoitteessa animelehti.fi
+
+      footer
+        a(href=link) Lue osoitteessa animelehti.fi

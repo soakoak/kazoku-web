@@ -109,6 +109,50 @@
   }
 }
 
+.news_window {
+  .fill-in-textbox();
+
+  .kuva {
+    height: 150px;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .description {
+    .fill-in-textbox.padding();
+
+    height: auto;
+
+    @media (min-width: @screen-sm-min) {
+      height: 200px;
+    }
+
+    @media (min-width: @screen-lg-min) {
+      height: 175px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 0 0 2px;
+    }
+
+    .summary {
+      margin: 0 0 5px;
+    }
+
+    .publish_date {
+      margin: 0 0 20px;
+    }
+
+    footer {
+      @media (min-width: @screen-sm-min) {
+        position: absolute;
+        bottom: 10px;
+      }
+    }
+  }
+}
+
 .text-page {
   border-top: 2px solid @fill-background-color;
   padding-top: 30px;
@@ -283,43 +327,7 @@ nav {
     margin-bottom: 5px;
   }
 
-  .ruutu {
-    .fill-in-textbox();
 
-    .kuva {
-      height: 150px;
-      background-position: center center;
-      background-size: cover;
-    }
-
-    .description {
-      .fill-in-textbox.padding();
-
-      height: auto;
-
-      @media (min-width: @screen-sm-min) {
-        height: 200px;
-      }
-
-      @media (min-width: @screen-lg-min) {
-        height: 175px;
-      }
-
-      .big-strong();
-
-      h1 {
-        font-size: 18px;
-        margin: 0 0 2px;
-      }
-
-      footer {
-        @media (min-width: @screen-sm-min) {
-          position: absolute;
-          bottom: 10px;
-        }
-      }
-    }
-  }
 
   .further {
     text-align: right;

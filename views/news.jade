@@ -11,6 +11,7 @@ block content
           include ./mixins/news_window.jade
 
           each n in news.slice(i, i+chunkSize)
+            .col-xs-12.col-sm-4.content-wrapper
               +news_window(n.link, n.imageName, n.title,
             DateFormat.format(n.pubDate), n.summary)
 
