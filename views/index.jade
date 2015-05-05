@@ -28,11 +28,12 @@ block content
           for msg in blogMsgs
             - var date = DateFormat.format(msg.pubDate);
             - var time = TimeFormat.format(msg.pubDate);
-            +blog_post(msg.blog.uri, msg.blog.name, msg.link,
-              msg.title, date, time)
+            li.list-group-item
+              +blog_post(msg.blog.uri, msg.blog.name, msg.link,
+                msg.title, date, time)
 
         footer
-          strong
+          h4
             a(href="/blogs/") Lisää blogeja
 
 

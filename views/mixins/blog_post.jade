@@ -1,10 +1,8 @@
 mixin blog_post(blogUri, blogName, link, title, date, time)
-  li.list-group-item
-    strong
-      a(href= link)
-        !=title
-    br
-    ="Blogissa "
-    a(href=blogUri)
-      =blogName
-    =" " + date + " klo " + time
+  .blog-post
+    h3: a(href= link)!=title
+    p.description
+      ="Blogissa "
+      a(href=blogUri)
+        =blogName
+      =" " + date + " klo " + time
