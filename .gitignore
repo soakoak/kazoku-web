@@ -34,3 +34,6 @@ public/images/raw
 
 # generated css
 public/css/*.css
+
+# config-file
+config/config.json
