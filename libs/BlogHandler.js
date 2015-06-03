@@ -33,7 +33,7 @@ function fetchBlogPosts(count, callback) {
          Message.link = msg.link;
          Message.pubDate = msg.pubDate;
 
-         Blog.find(msg.blogid).then(function afterFindingBlog(blog) {
+         Blog.findById(msg.blogid).then(function afterFindingBlog(blog) {
             Message.blog = {
                uri: blog.etusivu,
                name: blog.nimi
