@@ -31,7 +31,7 @@ module.exports = {
                });
                writeStream.on('finish', function onFinish() {
                   resolve(imagePath);
-               })
+               });
 
                imageStream.pipe(writeStream);
 
@@ -80,6 +80,7 @@ module.exports = {
          news.pubDate = new Date(item.pubDate);
          news.summary = item.summary;
 
+         // TODO doesn't really relate to handling of RSS items, should be moved elsewhere
          downloadAnimelehtiImage(news.imageName, function afterDownload(err, result) {
             callback(null, news);
          });
