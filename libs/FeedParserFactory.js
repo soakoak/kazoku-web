@@ -13,12 +13,7 @@ module.exports = {
 
    getAnimelehtiFeedParser: function getAnimelehtiFeedParser(sourceId, callback) {
 
-      function downloadAnimelehtiImage(animelehtiImageName) {
-
-         function formImagePath(imageName) {
-            return path.join(__dirname, '..', 'public', 'images',
-               'uutiskuvat', imageName + '.jpg');
-         }
+      function downloadAnimelehtiImage(animelehtiImageName, callback) {
 
          function formAnimelehtiNewsimageUri(imageName) {
             return 'http://animelehti.fi/wordpress/wp-content/resized/posticons/' +
@@ -32,26 +27,42 @@ module.exports = {
                var writeStream = fs.createWriteStream(imagePath);
                writeStream.on('error', function onError(err) {
                   console.log(err);
+                  reject(err);
                });
+               writeStream.on('finish', function onFinish() {
+                  resolve(imagePath);
+               })
+
                imageStream.pipe(writeStream);
 
-               resolve(imagePath);
             });
          }
 
-         var imagePath = formImagePath(animelehtiImageName);
+         var imageFolder = path.join(__dirname, '..', 'public',
+            'images', 'uutiskuvat');
+         var imagePath = path.join(imageFolder, animelehtiImageName + '.jpg');
 
-         fs.exists(imagePath, function downloadIfNotExists(fileExists) {
+         fs.mkdir(imageFolder, function afterMakingFolder(err) {
 
-            if (!fileExists) {
+            if(err && err.code != 'EEXIST') {
+               console.log('Something unexpected happened making folder ' + imageFolder);
+               callback(err);
+            }
+
+            var fopen = BPromise.promisify(fs.open);
+
+            fopen(imagePath, 'r').catch(function onError(err) {
                var uri = formAnimelehtiNewsimageUri(animelehtiImageName);
 
                downloadImage(uri, imagePath).then(function afterDownload(path) {
                   console.log('Downloaded image ' + path);
+                  callback(null, path);
+               }).catch(function onError(err) {
+                  console.log(err);
+                  callback(err);
                });
-            }
+            });
          });
-
       }
 
       function itemHandler(item, callback) {
@@ -69,9 +80,9 @@ module.exports = {
          news.pubDate = new Date(item.pubDate);
          news.summary = item.summary;
 
-         downloadAnimelehtiImage(news.imageName);
-
-         callback(null, news);
+         downloadAnimelehtiImage(news.imageName, function afterDownload(err, result) {
+            callback(null, news);
+         });
       }
 
       var animelehtiFeedParser = module.exports.getDefaultFeedParser(
